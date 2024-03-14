@@ -1,0 +1,13 @@
+:root {
+  margin: 0;
+  padding: 0;
+}
+
+input[type='text'] {
+  border: none;
+}
+
+/* Удаление границы с помощью свойства border-width */
+input[type='text'] {
+  border-width: 0;
+}
