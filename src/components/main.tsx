@@ -1,4 +1,5 @@
 import Carousel from './carousel'
+import Chosens from './chosens'
 import TopAccounts from './topAccounts'
 
 const Main = () => {
@@ -6,6 +7,7 @@ const Main = () => {
     <>
       <Carousel />
       <TopAccounts />
+      <Chosens />
     </>
   )
 }

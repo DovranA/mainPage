@@ -1,10 +1,10 @@
-:root {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
 input[type='text'] {
-  border: none;
+  outline: none;
 }
 
 /* Удаление границы с помощью свойства border-width */
