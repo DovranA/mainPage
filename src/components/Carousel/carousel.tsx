@@ -3,7 +3,7 @@ import './carousel.css'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 
 type Params = {
-  slides: any
+  slides: item[]
 }
 type item = {
   src: string

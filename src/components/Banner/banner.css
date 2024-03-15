@@ -1,0 +1,34 @@
+.banners {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 25px 0;
+}
+.banner {
+  flex: 1;
+  height: 250px;
+  border-radius: 0.5rem;
+  background-color: rgb(105, 6, 6);
+  display: flex;
+  margin-right: 50px;
+}
+.banner:last-child {
+  margin-right: 0;
+}
+.title {
+  position: absolute;
+  width: 200px;
+  height: 70px;
+  background-color: #00000070;
+  border-radius: 0.5rem 0 0.5rem 0;
+  color: white;
+  font-size: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-fit {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}

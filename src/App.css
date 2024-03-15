@@ -6,30 +6,9 @@
   padding: 0 100px;
 }
 
-.topAccounts {
-  width: 100%;
-  height: 250px;
-  margin-top: 50px;
-  border-radius: 0.5rem;
-  background-color: rgb(105, 6, 6);
-  display: flex;
-}
-.title {
-  position: absolute;
-  width: 200px;
-  height: 70px;
-  background-color: #00000070;
-  border-radius: 0.5rem 0 0.5rem 0;
-  color: white;
-  font-size: 1.7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .chosens {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 25px;
   display: flex;
   flex-flow: column;
 }
@@ -48,10 +27,4 @@
   background-color: black;
   border-radius: 50px;
   padding: 8px 20px;
-}
-
-.image-fit {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
 }
