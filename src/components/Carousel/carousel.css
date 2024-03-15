@@ -1,0 +1,50 @@
+.carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
+.slide {
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+.slide-hiden {
+  display: none;
+}
+.arrow {
+  position: absolute;
+  color: rgba(70, 70, 70, 0.357);
+  width: 2rem;
+  height: 2rem;
+}
+
+.arrow-left {
+  left: 1rem;
+}
+.arrow-right {
+  right: 1rem;
+}
+
+.indicators {
+  display: flex;
+  position: absolute;
+  bottom: 1rem;
+  right: 3rem;
+}
+.indicator {
+  background-color: rgba(11, 195, 11, 0.648);
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  margin: 0 0.2rem;
+}
+.indicator-inactive {
+  background-color: gray;
+}

@@ -1,0 +1,8 @@
+{
+  "slices": [
+    { "src": "./img/deniz.jpg", "altr": "First slice" },
+    { "src": "./assets/nature.jpg", "altr": "Second slice" },
+    { "src": "./assets/ydag.jpg", "altr": "Third slice" },
+    { "src": "./assets/test.jpg", "altr": "Fourth slice" }
+  ]
+}
