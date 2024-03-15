@@ -9,7 +9,17 @@ type item = {
   src: string
   altr: string
 }
-const Carousel = ({ slides }: Params) => {
+import image1 from './img/deniz.jpg'
+import image2 from './img/nature.jpg'
+import image3 from './img/surat1.jpg'
+import image4 from './img/ydag.jpg'
+const slides = [
+  { src: image1, altr: 'f slice' },
+  { src: image2, altr: 'Second slice' },
+  { src: image3, altr: 'Third slice' },
+  { src: image4, altr: 'Fourth slice' },
+]
+const Carousel = () => {
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
     setSlide(slide === slides.length - 1 ? 0 : slide + 1)
@@ -17,6 +27,7 @@ const Carousel = ({ slides }: Params) => {
   const prevSlide = () => {
     setSlide(slide === slides.length - 1 ? 0 : slide + 1)
   }
+
   return (
     <div className='carousel'>
       <BsArrowLeftCircleFill className='arrow arrow-left' onClick={prevSlide} />

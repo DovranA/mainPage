@@ -1,8 +1,8 @@
 {
   "slices": [
     { "src": "./img/deniz.jpg", "altr": "First slice" },
-    { "src": "./assets/nature.jpg", "altr": "Second slice" },
-    { "src": "./assets/ydag.jpg", "altr": "Third slice" },
-    { "src": "./assets/test.jpg", "altr": "Fourth slice" }
+    { "src": "./img/nature.jpg", "altr": "Second slice" },
+    { "src": "./img/ydag.jpg", "altr": "Third slice" },
+    { "src": "./img/test.jpg", "altr": "Fourth slice" }
   ]
 }

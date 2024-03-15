@@ -12,15 +12,19 @@
   border-radius: 0.5rem;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .slide-hiden {
   display: none;
 }
 .arrow {
   position: absolute;
-  color: rgba(70, 70, 70, 0.357);
+  color: rgba(163, 163, 163, 0.357);
   width: 2rem;
   height: 2rem;
+}
+.arrow:hover {
+  cursor: pointer;
 }
 
 .arrow-left {
@@ -44,6 +48,9 @@
   border: none;
   outline: none;
   margin: 0 0.2rem;
+}
+.indicator:hover {
+  cursor: pointer;
 }
 .indicator-inactive {
   background-color: gray;
