@@ -1,18 +1,9 @@
-.cards {
-  width: 100%;
-  height: 400px;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  justify-content: space-between;
-  margin: 10px 0;
-}
 .card {
   width: 300px;
   height: 100%;
   border-radius: 0.5rem;
 }
-.card-icon {
+.cardIcon {
   display: flex;
   width: 100px;
   margin: 10px 0 0 10px;
@@ -22,14 +13,13 @@
   padding: 10px 0px;
   border-radius: 0.1rem;
 }
-.card-icon:only-child {
+.cardIcon:only-child {
   font-size: 1.3rem;
 }
 .playBtn {
   display: flex;
   width: 60px;
   height: 60px;
-  background-color: #ffffff42;
   /* background-image: ; */
   justify-content: center;
   align-items: center;
@@ -39,11 +29,22 @@
   border-radius: 50%;
   font-size: 2rem;
   padding: 15px;
+  overflow: hidden;
 }
-.playBtn-icon {
+.playBtnIcon {
   color: white;
 }
-
+.playBtnBg {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  /* opacity: 0.5; */
+  background-color: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
 .info {
   display: flex;
   width: 100%;
@@ -58,12 +59,12 @@
   font-size: 1.5rem;
   color: #ffffff;
 }
-.info-date {
+.infoDate {
   padding-top: 5px;
   font-size: 1.2rem;
 }
 
-.bg-image {
+.bgImage {
   width: 300px;
   height: 400px;
   position: absolute;

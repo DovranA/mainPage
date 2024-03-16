@@ -1,30 +1,12 @@
 * {
   user-select: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-.main {
+.base {
   padding: 0 100px;
 }
-
-.chosens {
-  width: 100%;
-  margin-top: 25px;
-  display: flex;
-  flex-flow: column;
-}
-.chosens > .barHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.chosens > .barHeader > p {
-  font-size: 2.3rem;
-  margin: 0;
-}
-.chosens > .barHeader > span {
-  color: white;
-  background-color: black;
-  border-radius: 50px;
-  padding: 8px 20px;
+input:focus {
+  outline: none;
 }

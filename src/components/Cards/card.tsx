@@ -1,28 +1,29 @@
 import { RiVideoLine } from 'react-icons/ri'
 import { IoPlay } from 'react-icons/io5'
-
+import image from '../../assets/test.png'
 type Props = {
   img: string
   count: number
   title: string
   date: string
 }
+import styles from './card.module.css'
 const Card = ({ img, count, title, date }: Props) => {
-  // console.log(img)
   return (
-    <div className='card'>
-      <img src={img} alt={String(img)} className='bg-image' />
-      <span className='card-icon'>
+    <div className={styles.card}>
+      <img src={img} alt={String(img)} className={styles.bgImage} />
+      <span className={styles.cardIcon}>
         <RiVideoLine />
         {count}
       </span>
-      <div className='playBtn'>
-        <IoPlay className='playBtn-icon' />
+      <div className={styles.playBtn}>
+        <IoPlay className={styles.playBtnIcon} />
+        <span className={styles.playBtnBg}></span>
       </div>
-      <div className='info'>
-        <div className='info-data'>
-          <h3 className='info-title'>{title}</h3>
-          <p className='info-date'>{date}</p>
+      <div className={styles.info}>
+        <div className={styles.infoData}>
+          <h3 className={styles.infoTitle}>{title}</h3>
+          <p className={styles.infoDate}>{date}</p>
         </div>
       </div>
     </div>

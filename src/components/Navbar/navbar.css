@@ -12,17 +12,9 @@
   display: flex;
   align-items: center;
 }
-.navBar > span > .icon-left {
-  border-radius: 50% 0 0 50%;
-  color: black;
-  background-color: silver;
-  padding: 8px 15px;
-}
-.navBar > span > .icon-right {
-  border-radius: 0 50% 50% 0;
-  color: silver;
-  background-color: black;
-  padding: 8px 15px;
+.icon > img {
+  /* height: 100%; */
+  width: 125px;
 }
 .navBar > .search {
   border: 1px solid rgb(100, 100, 100);
@@ -50,6 +42,7 @@
 .navBar > span.user {
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 .navBar > span.user > .notice {
   font-size: 2.3rem;
@@ -76,4 +69,35 @@
   width: 50px;
   border-radius: 50%;
   background-color: red;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar > img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.options {
+  width: 200px;
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  z-index: 99999;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.22);
+  box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.22);
+}
+.options > li {
+  padding: 10px 15px;
+  border-bottom: 1px solid gray;
+}
+.options > li:last-child {
+  border-bottom: none;
 }

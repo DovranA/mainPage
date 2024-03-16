@@ -1,0 +1,9 @@
+.cards {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-between;
+  margin: 10px 0;
+}

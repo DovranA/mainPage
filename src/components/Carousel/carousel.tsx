@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './carousel.css'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 
 type Params = {
@@ -11,7 +10,7 @@ type item = {
 }
 import image1 from './img/deniz.jpg'
 import image2 from './img/nature.jpg'
-import image3 from './img/surat1.jpg'
+import image3 from './img/pexels-ken-cheung-5574638.jpg'
 import image4 from './img/ydag.jpg'
 const slides = [
   { src: image1, altr: 'f slice' },
@@ -19,41 +18,54 @@ const slides = [
   { src: image3, altr: 'Third slice' },
   { src: image4, altr: 'Fourth slice' },
 ]
+
+import styles from './carousel.module.css'
 const Carousel = () => {
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
     setSlide(slide === slides.length - 1 ? 0 : slide + 1)
   }
   const prevSlide = () => {
-    setSlide(slide === slides.length - 1 ? 0 : slide + 1)
+    setSlide(slide === 0 ? slides.length - 1 : slide - 1)
   }
-
+  console.log(slide)
   return (
-    <div className='carousel'>
-      <BsArrowLeftCircleFill className='arrow arrow-left' onClick={prevSlide} />
-      {slides.map((item: item, idx: number) => {
-        return (
-          <img
-            src={item.src}
-            alt={item.altr}
-            key={idx}
-            className={slide === idx ? 'slide' : 'slide slide-hiden'}
-          />
-        )
-      })}
+    <div className={styles.carousel}>
+      <BsArrowLeftCircleFill
+        className={`${styles.arrow} ${styles.arrowLeft}`}
+        onClick={prevSlide}
+      />
+      <div className={styles.carouselTrack}>
+        {slides.map((item: item, idx: number) => {
+          return (
+            <img
+              src={item.src}
+              alt={item.altr}
+              key={idx}
+              className={
+                slide === idx
+                  ? styles.slide
+                  : `${styles.slide} ${styles.slideActive}`
+              }
+            />
+          )
+        })}
+      </div>
       <BsArrowRightCircleFill
-        className='arrow arrow-right'
+        className={`${styles.arrow} ${styles.arrowRight}`}
         onClick={nextSlide}
       />
 
-      <span className='indicators'>
+      <span className={styles.indicators}>
         {slides.map((_: any, idx: number) => {
           return (
             <button
               key={idx}
               onClick={() => setSlide(idx)}
               className={
-                slide === idx ? 'indicator' : 'indicator indicator-inactive'
+                slide === idx
+                  ? styles.indicator
+                  : `${styles.indicator} ${styles.indicatorInactive}`
               }
             ></button>
           )

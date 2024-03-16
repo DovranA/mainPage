@@ -1,13 +1,16 @@
 import Avatar from './avatar'
 import NotificationBtn from './notificationBtn'
 import './navbar.css'
+import logo from '../../assets/logo.png'
+import { useState } from 'react'
 const Navbar = () => {
+  const [options, setOptions] = useState(false)
+  console.log(options)
   return (
-    <div>
+    <div className='base'>
       <nav className='navBar'>
         <span className='icon'>
-          <span className='icon-left'>TM</span>
-          <span className='icon-right'>BIZ</span>
+          <img src={logo} alt='logo' />
         </span>
         <span className='search'>
           <input type='text' placeholder='Gozleg....' />
@@ -17,7 +20,20 @@ const Navbar = () => {
         </span>
         <span className='user'>
           <NotificationBtn count={3} />
-          <Avatar />
+          <div
+            onClick={() => {
+              setOptions(!options)
+            }}
+          ></div>
+          <Avatar func={setOptions} option={options} />
+          {options ? (
+            <ul className='options'>
+              <li>Profile</li>
+              <li>Ulgamdan chykmak</li>
+            </ul>
+          ) : (
+            <></>
+          )}
         </span>
       </nav>
     </div>

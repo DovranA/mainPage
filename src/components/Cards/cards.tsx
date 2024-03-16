@@ -1,6 +1,3 @@
-import React from 'react'
-import './cards.css'
-import Card from './card'
 type Props = {
   data: Item[]
 }
@@ -10,10 +7,11 @@ type Item = {
   title: string
   date: string
 }
-
+import Card from './card'
+import styles from './cards.module.css'
 const Cards = ({ data }: Props) => {
   return (
-    <div className='cards'>
+    <div className={styles.cards}>
       {data.map((item: Item) => {
         return (
           <Card

@@ -1,0 +1,63 @@
+.footer {
+  width: 100%;
+  height: 500px;
+  background-color: black;
+  position: absolute;
+  margin-top: 50px;
+  padding: 150px 100px 50px 100px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.menu {
+  height: 100%;
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+}
+.menu > li {
+  color: gray;
+  font-size: 2rem;
+  padding: 10px 0;
+}
+.social {
+  flex: 3;
+  height: 100%;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.stores {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.stores > img {
+  width: 400px;
+}
+.apps {
+  padding-top: 50px;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 4rem;
+}
+.logo {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  gap: 30px;
+}
+.logo > img {
+  width: 250px;
+}
