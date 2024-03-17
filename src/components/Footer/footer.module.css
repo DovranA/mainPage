@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   gap: 30px;
+  flex-wrap: wrap;
 }
 .menu {
   height: 100%;
@@ -38,7 +39,7 @@
   justify-content: space-between;
 }
 .stores > img {
-  width: 400px;
+  width: 40%;
 }
 .apps {
   padding-top: 50px;

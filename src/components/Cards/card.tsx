@@ -1,6 +1,5 @@
 import { RiVideoLine } from 'react-icons/ri'
 import { IoPlay } from 'react-icons/io5'
-import image from '../../assets/test.png'
 type Props = {
   img: string
   count: number

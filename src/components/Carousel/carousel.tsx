@@ -1,26 +1,30 @@
 import { useState } from 'react'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 
-type Params = {
-  slides: item[]
-}
+// type Params = {
+//   slides: item[]
+// }
 type item = {
-  src: string
+  img: string
   altr: string
 }
-import image1 from './img/deniz.jpg'
-import image2 from './img/nature.jpg'
-import image3 from './img/pexels-ken-cheung-5574638.jpg'
-import image4 from './img/ydag.jpg'
-const slides = [
-  { src: image1, altr: 'f slice' },
-  { src: image2, altr: 'Second slice' },
-  { src: image3, altr: 'Third slice' },
-  { src: image4, altr: 'Fourth slice' },
-]
+// import image1 from './img/deniz.jpg'
+// import image2 from './img/nature.jpg'
+// import image3 from './img/pexels-ken-cheung-5574638.jpg'
+// import image4 from './img/ydag.jpg'
+// const slides = [
+//   { img: image1, altr: 'f slice' },
+//   { img: image2, altr: 'Second slice' },
+//   { img: image3, altr: 'Third slice' },
+//   { img: image4, altr: 'Fourth slice' },
+// ]
 
 import styles from './carousel.module.css'
+import { useMain } from '../../MainContext'
+// import { useMain } from '../../MainContext'
 const Carousel = () => {
+  const { state } = useMain()
+  const slides = state.slides
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
     setSlide(slide === slides.length - 1 ? 0 : slide + 1)
@@ -28,7 +32,6 @@ const Carousel = () => {
   const prevSlide = () => {
     setSlide(slide === 0 ? slides.length - 1 : slide - 1)
   }
-  console.log(slide)
   return (
     <div className={styles.carousel}>
       <BsArrowLeftCircleFill
@@ -39,7 +42,7 @@ const Carousel = () => {
         {slides.map((item: item, idx: number) => {
           return (
             <img
-              src={item.src}
+              src={item.img}
               alt={item.altr}
               key={idx}
               className={

@@ -1,8 +1,118 @@
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(72, 72, 72, 0.3);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login {
+  width: 600px;
+  height: 650px;
+  background-color: #fff;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 50px;
+  z-index: 3;
+}
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.header > p {
+  font-size: 1.2rem;
+  padding: 15px 0 30px 0;
+  font-weight: bold;
+}
+.userIcon {
+  font-size: 5rem;
+}
+
+.inp {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  font-size: 2rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 10px 0;
+  gap: 15px;
+  margin: 20px 0;
+}
+.inpIcon {
+  /* padding: 0 10px; */
+  margin: 0 10px;
+}
+.inpIconHid {
+  visibility: hidden;
+}
+.inp > input {
+  width: 100%;
+  border: none;
+  font-size: 1.3rem;
+}
+.option {
+  width: 100%;
+  display: flex;
+  /* border: 1px solid red; */
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+.checkBox {
+  display: flex;
+  align-items: center;
+}
+.checkBox > input {
+  margin-right: 10px;
+  width: 1.4rem;
+  height: 1.4rem;
+  /* border-radius: 10px; */
+}
+.checkBox > input:checked {
+  accent-color: #039c27;
+  background-color: #fff;
+  color: #fff;
+}
+
+.submit {
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  padding: 15px 0;
+  margin: 20px 0;
+}
+.attention {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding-top: 20px;
+  font-weight: bold;
+}
+.warnIcon {
+  font-size: 1.6rem;
+  margin-right: 10px;
+}
+.close {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #00000053;
+  z-index: 1;
 }

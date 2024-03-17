@@ -4,6 +4,9 @@
   display: flex;
   flex-flow: column;
 }
+.chosens::-webkit-scrollbar {
+  display: none;
+}
 .barHeader {
   display: flex;
   flex-direction: row;

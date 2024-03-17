@@ -2,10 +2,11 @@ import Avatar from './avatar'
 import NotificationBtn from './notificationBtn'
 import './navbar.css'
 import logo from '../../assets/logo.png'
-import { useState } from 'react'
+import { useMain } from '../../MainContext'
+import { FiUser } from 'react-icons/fi'
+import { RxExit } from 'react-icons/rx'
 const Navbar = () => {
-  const [options, setOptions] = useState(false)
-  console.log(options)
+  const { state, dispatch } = useMain()
   return (
     <div className='base'>
       <nav className='navBar'>
@@ -20,16 +21,22 @@ const Navbar = () => {
         </span>
         <span className='user'>
           <NotificationBtn count={3} />
-          <div
-            onClick={() => {
-              setOptions(!options)
-            }}
-          ></div>
-          <Avatar func={setOptions} option={options} />
-          {options ? (
+          <Avatar />
+          {state.option ? (
             <ul className='options'>
-              <li>Profile</li>
-              <li>Ulgamdan chykmak</li>
+              <li
+                onClick={() => {
+                  dispatch({ type: 'setProfile', payload: true })
+                  dispatch({ type: 'setOption', payload: false })
+                }}
+              >
+                <FiUser className='optionIcon' />
+                Profile
+              </li>
+              <li>
+                <RxExit className='optionIcon' />
+                Ulgamdan chykmak
+              </li>
             </ul>
           ) : (
             <></>

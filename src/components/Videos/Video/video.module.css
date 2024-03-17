@@ -1,7 +1,7 @@
 .video {
   display: flex;
-  width: 550px;
-  height: 430px;
+  width: 32%;
+  height: 380px;
   border-radius: 0.5rem;
   overflow: hidden;
   flex-direction: column;
@@ -67,7 +67,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: gray;
   padding-top: 30px;
   font-family: Arial, Helvetica, sans-serif;
@@ -86,11 +86,27 @@
   align-items: center;
 }
 .icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   padding-right: 5px;
 }
 .iconHeart {
   color: red;
   margin-left: 10px;
   font-size: 2.2rem;
+}
+@media (max-width: 1300px) {
+  .video {
+    width: 48%;
+  }
+  .preview {
+    flex: 5;
+  }
+}
+@media (max-width: 850px) {
+  .video {
+    width: 100%;
+  }
+  .preview {
+    flex: 5;
+  }
 }

@@ -10,7 +10,6 @@ type Item = {
 }
 
 const Banner: React.FC<{ data: Item[] }> = ({ data }) => {
-  console.log(data)
   return (
     <div className='banners'>
       {data.map((item: Item, index: number) => (

@@ -1,13 +1,12 @@
-type Props = {
-  func: () => void
-  option: boolean
-}
-
+import { useMain } from '../../MainContext'
 import image from '../../assets/logo.png'
-const Avatar = ({ func, option }: Props) => {
-  console.log(option)
+const Avatar = () => {
+  const { state, dispatch } = useMain()
   return (
-    <div onClick={() => func(!option)} className='avatar'>
+    <div
+      onClick={() => dispatch({ type: 'setOption', payload: !state.option })}
+      className='avatar'
+    >
       <img src={image} alt='avatar' />
     </div>
   )

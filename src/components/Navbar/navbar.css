@@ -30,7 +30,6 @@
   border: none;
   padding: 12px;
   width: 100%;
-  margin-left: 15px;
 }
 .navBar > .search > input[type='text']:focus {
   border: none;
@@ -80,11 +79,11 @@
   object-position: center;
 }
 .options {
-  width: 200px;
+  width: 250px;
   position: absolute;
   right: 10px;
   top: 40px;
-  z-index: 99999;
+  z-index: 100;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -97,7 +96,20 @@
 .options > li {
   padding: 10px 15px;
   border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
 }
 .options > li:last-child {
   border-bottom: none;
+  color: red;
+}
+/* @media (max-width: 650px) {
+  .navBar .icon img {
+    display: none;
+  }
+} */
+
+.optionIcon {
+  margin-right: 10px;
 }
