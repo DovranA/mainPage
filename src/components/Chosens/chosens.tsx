@@ -13,13 +13,16 @@ import Cards from '../Cards/cards'
 // ]
 import styles from './chosens.module.css'
 import { useMain } from '../../MainContext'
+import { Link } from 'react-router-dom'
 const Chosens = () => {
   const { state } = useMain()
   return (
     <div className={styles.chosens}>
       <span className={styles.barHeader}>
         <p className={styles.title}>Saylananlar</p>
-        <span className={styles.btn}>Hemmesi {'>>'}</span>
+        <Link to={'/categories'} className={styles.btn}>
+          Hemmesi {'>>'}
+        </Link>
       </span>
       <Cards data={state.cards} />
     </div>

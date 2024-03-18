@@ -1,0 +1,206 @@
+{
+  "banner": {
+    "id": 5,
+    "images": [
+      {
+        "img": "95.85.127.109/data/banner/images/177c853b-5ee1-4d78-831b-d11c5d8e8ff2.jpg"
+      },
+      {
+        "img": "95.85.127.109/data/banner/images/705118ee-c8e0-4ec2-83c0-8e42f1cfbf63.jpg"
+      }
+    ],
+    "name": "Banner test",
+    "external_link": "http://google.com",
+    "internal_link": "",
+    "main_page_banner": true,
+    "top_hashaplar_page_banner": false,
+    "top_videos_page_banner": false,
+    "trends_page_banner": false,
+    "contactus_page_banner": false,
+    "start": "2024-03-13T11:03:01Z",
+    "end": "2024-03-16T11:03:12Z"
+  },
+  "topusers": {
+    "position": "top",
+    "image": "95.85.127.109/data/mainpage/topulanyjylar/0af7c0c5-b805-482c-af7b-93977a1dbb47.jpg",
+    "total": 2
+  },
+  "saylananlar": {
+    "position": "center",
+    "total": 2,
+    "details": [
+      {
+        "user_id": 11,
+        "username": "M.Azadowna",
+        "total_videos": 5,
+        "videoDetail": [
+          {
+            "video": "95.85.127.109/data/videos/videos/3ee8e5a7-f962-4a0b-87d7-6182596e09f7.mp4",
+            "video_image": "",
+            "pinned": false,
+            "view_count": 100,
+            "title": "Amatly Bujiteriya",
+            "posted_at": "2024-03-16T07:14:44.336948Z"
+          }
+        ]
+      },
+      {
+        "user_id": 18,
+        "username": "Online Biznes",
+        "total_videos": 5,
+        "videoDetail": [
+          {
+            "video": "95.85.127.109/data/videos/videos/01.03.2024_melek_magayzn_7.mp4",
+            "video_image": "95.85.127.109/data/videos/images/dsf.jpg",
+            "pinned": false,
+            "view_count": 102,
+            "title": "Melek magazyn",
+            "posted_at": "2024-03-09T10:43:16.925760Z"
+          }
+        ]
+      }
+    ]
+  },
+  "topvideos": {
+    "position": "bottom",
+    "image": "95.85.127.109/data/mainpage/topvideos/f78e92e6-0404-45d1-aa53-aa0f4c6ff2f5.jpg",
+    "total": 5
+  },
+  "trends": {
+    "image": "95.85.127.109/data/mainpage/trends/e18bbf94-c2a3-432b-bb95-2e4cce53cd68.jpg",
+    "total": 10
+  },
+  "brands": {
+    "image": "95.85.127.109/data/mainpage/brands/382d0283-be92-4123-a176-a970399e1d0d.jpg",
+    "total": 11
+  },
+  "totalvideos": {
+    "image": "95.85.127.109/data/mainpage/videos/8bfcb265-699a-4720-a943-aec384301cbe.jpg",
+    "total": 55
+  },
+  "pinnedVideos": {
+    "total": 4,
+    "detail": [
+      {
+        "id": 62,
+        "videofile": "95.85.127.109/data/videos/videos/01.03.2024__Lux_dom_10.mp4",
+        "image_path": "95.85.127.109/data/videos/images/dffg.jpg",
+        "title": "Lux dom",
+        "description": "Test/Lux dom\r\nÝerleşýän ýeri: Aşgabat şäheri online magazyn\r\nHabarlaşmak üçin :\r\n+99362476070",
+        "location": "Turkmenistan",
+        "chekedStatus": true,
+        "cancel": false,
+        "duration": "0",
+        "pinned": true,
+        "pinned_start_date": "0",
+        "pinned_end_date": "0",
+        "view_count": 114,
+        "share_count": 62,
+        "like_count": 103,
+        "share_token": "7d2abadb-d73b-4684-bfe1-ab5a02dcc250",
+        "download_count": 62,
+        "posted_at": "2024-03-09T12:04:27.170770Z",
+        "created_at": "2024-03-09T12:04:27.170844Z",
+        "updated_at": "2024-03-16T16:03:03.780859Z",
+        "is_active": true,
+        "trend": false,
+        "is_vertical": true,
+        "user": 54,
+        "category": 17,
+        "subcategory": 71,
+        "brands": null,
+        "tags": [9]
+      },
+      {
+        "id": 26,
+        "videofile": "95.85.127.109/data/videos/videos/01.03.2024_mb_shoes_gurtly_tel_862266736_3.mp4",
+        "image_path": "95.85.127.109/data/videos/images/MB_shoesfdgdf.jpg",
+        "title": "MB shoes",
+        "description": "Test/MB shoes\r\nÝerleşýän ýeri: Aşgabat şäheri Gurtly \r\nHabarlaşmak üçin :\r\n+99362266736",
+        "location": "Turkmenistan",
+        "chekedStatus": true,
+        "cancel": false,
+        "duration": "0",
+        "pinned": true,
+        "pinned_start_date": "0",
+        "pinned_end_date": "0",
+        "view_count": 105,
+        "share_count": 52,
+        "like_count": 53,
+        "share_token": "7cb6c403-8292-48b0-8ed4-2d8bb0271fed",
+        "download_count": 61,
+        "posted_at": "2024-03-09T09:38:29.061682Z",
+        "created_at": "2024-03-09T09:38:29.061759Z",
+        "updated_at": "2024-03-16T15:40:06.817727Z",
+        "is_active": true,
+        "trend": false,
+        "is_vertical": true,
+        "user": 55,
+        "category": null,
+        "subcategory": 33,
+        "brands": null,
+        "tags": [7]
+      },
+      {
+        "id": 37,
+        "videofile": "95.85.127.109/data/videos/videos/01.03.2024_mb_shoes_gurtly_tel_862266736_6.mp4",
+        "image_path": "95.85.127.109/data/videos/images/MB_shoessf.jpg",
+        "title": "MB shoes",
+        "description": "Test/MB shoes\r\nÝerleşýän ýeri: Aşgabat şäheri Gurtly \r\nHabarlaşmak üçin :\r\n+99362266736",
+        "location": "Turkmenistan",
+        "chekedStatus": true,
+        "cancel": false,
+        "duration": "0",
+        "pinned": true,
+        "pinned_start_date": "0",
+        "pinned_end_date": "0",
+        "view_count": 104,
+        "share_count": 51,
+        "like_count": 69,
+        "share_token": "04cc11e9-3f5e-4495-8ca5-a12429f23775",
+        "download_count": 56,
+        "posted_at": "2024-03-09T10:16:27.613698Z",
+        "created_at": "2024-03-09T10:16:27.613767Z",
+        "updated_at": "2024-03-17T06:41:09.648288Z",
+        "is_active": true,
+        "trend": false,
+        "is_vertical": true,
+        "user": 54,
+        "category": null,
+        "subcategory": 33,
+        "brands": null,
+        "tags": [7]
+      },
+      {
+        "id": 69,
+        "videofile": "95.85.127.109/data/videos/videos/589d59e9-6acf-42e9-a7f4-a9469b37471c.mp4",
+        "image_path": "",
+        "title": "Atash Elektronika",
+        "description": "Atash Elektronika",
+        "location": "Turkeminstan",
+        "chekedStatus": true,
+        "cancel": false,
+        "duration": "0",
+        "pinned": true,
+        "pinned_start_date": "11.03.2024",
+        "pinned_end_date": "13.03.2024",
+        "view_count": 15,
+        "share_count": 13,
+        "like_count": 14,
+        "share_token": "afaca3b4-c091-4d6c-aa19-ef71e58c7510",
+        "download_count": 15,
+        "posted_at": "2024-03-12T13:06:55.179580Z",
+        "created_at": "2024-03-12T13:06:55.179622Z",
+        "updated_at": "2024-03-16T13:34:42.175312Z",
+        "is_active": true,
+        "trend": false,
+        "is_vertical": true,
+        "user": 25,
+        "category": 5,
+        "subcategory": 7,
+        "brands": null,
+        "tags": [11]
+      }
+    ]
+  }
+}

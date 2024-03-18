@@ -4,11 +4,18 @@ import { IoPlay } from 'react-icons/io5'
 import { FiDownload } from 'react-icons/fi'
 import { FiEye } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
-const Video = () => {
+
+type Video = {
+  thumbnail: string
+}
+type Param = {
+  video: Video
+}
+const Video = ({ video }: Param) => {
   return (
     <div className={styles.video}>
       <div className={styles.preview}>
-        <img src={image1} alt='video' className={styles.thumbnail} />
+        <img src={video.thumbnail} alt='video' className={styles.thumbnail} />
         <div className={styles.playBtn}>
           <IoPlay className={styles.playBtnIcon} />
           <span className={styles.playBtnBg}></span>

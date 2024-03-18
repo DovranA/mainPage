@@ -1,0 +1,31 @@
+.catalogs {
+  width: 100%;
+  display: flex;
+  margin: 10px 0;
+  overflow-x: auto;
+  column-gap: 20px;
+}
+.catalogs::-webkit-scrollbar {
+  display: none;
+}
+.btn {
+  height: 30px;
+  width: 170px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  color: #fff;
+  flex: auto;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 0.3rem;
+  padding: 20px;
+  border: 2px solid black;
+}
+.btn:active {
+  border: 2px solid black;
+  background-color: #fff;
+  color: #000;
+}

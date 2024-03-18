@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMain } from '../../MainContext'
 import styles from './login.module.css'
 import { FaUserCircle } from 'react-icons/fa'
@@ -11,6 +11,7 @@ const Login = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [passVisible, setPassVisible] = useState(false)
+
   console.log(password)
   return state.profile ? (
     <div
@@ -19,7 +20,12 @@ const Login = () => {
     >
       <div
         className={styles.close}
-        onClick={() => dispatch({ type: 'setProfile', payload: false })}
+        onClick={() => {
+          dispatch({ type: 'setProfile', payload: false })
+          setName('')
+          setPassword('')
+          setPassVisible(false)
+        }}
       ></div>
       <div
         className={styles.login}

@@ -2,9 +2,12 @@ import './banner.css'
 import imageTop from '../../assets/pexels-ken-cheung-5574638.jpg'
 
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setCount } from '../../features/testSlice'
+import { useAppDispatch } from '../../app/hooks'
 
 type Item = {
-  title: string
+  title?: string
   image: string
   count?: number
 }
@@ -14,9 +17,13 @@ const Banner: React.FC<{ data: Item[] }> = ({ data }) => {
     <div className='banners'>
       {data.map((item: Item, index: number) => (
         <div key={index} className='banner'>
-          <span className='title'>
-            {item.title} {item.count ? '(' + item.count + ')' : ''}
-          </span>
+          {item.title ? (
+            <span className='title'>
+              {item.title} {item.count ? '(' + item.count + ')' : ''}
+            </span>
+          ) : (
+            <></>
+          )}
           <img src={item.image} alt={item.title} className='image-fit' />
         </div>
       ))}
