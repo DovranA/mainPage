@@ -1,23 +1,17 @@
 import { useState } from 'react'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 
-type item = {
-  img: string
-  altr: string
-}
-
 import styles from './carousel.module.css'
-import { useMain } from '../../MainContext'
-// import { useMain } from '../../MainContext'
+import { SelectBanner } from '../../features/mainSlice'
+import { useSelector } from 'react-redux'
 const Carousel = () => {
-  const { state } = useMain()
-  const slides = state.slides
+  const carousel = useSelector(SelectBanner)
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
-    setSlide(slide === slides.length - 1 ? 0 : slide + 1)
+    setSlide(slide === carousel?.images.length - 1 ? 0 : slide + 1)
   }
   const prevSlide = () => {
-    setSlide(slide === 0 ? slides.length - 1 : slide - 1)
+    setSlide(slide === 0 ? carousel?.images.length - 1 : slide - 1)
   }
   return (
     <div className={styles.carousel}>
@@ -26,11 +20,11 @@ const Carousel = () => {
         onClick={prevSlide}
       />
       <div className={styles.carouselTrack}>
-        {slides.map((item: item, idx: number) => {
+        {carousel?.images.map((item: any, idx: number) => {
           return (
             <img
-              src={item.img}
-              alt={item.altr}
+              src={'http://' + item.img}
+              alt={String(idx)}
               key={idx}
               className={
                 slide === idx
@@ -47,7 +41,7 @@ const Carousel = () => {
       />
 
       <span className={styles.indicators}>
-        {slides.map((_: any, idx: number) => {
+        {carousel?.images.map((_: any, idx: number) => {
           return (
             <button
               key={idx}

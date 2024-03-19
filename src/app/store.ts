@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import testReducer from '../features/testSlice'
-import videoReducer from '../features/videoSlice'
+import mainReducer from '../features/mainSlice'
 export const store = configureStore({
   reducer: {
-    test: testReducer,
-    videos: videoReducer,
+    main: mainReducer,
   },
 })
 

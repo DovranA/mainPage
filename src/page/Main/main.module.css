@@ -1,0 +1,11 @@
+.base {
+  padding: 0 100px;
+}
+
+.twoBanners {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 25px 0;
+  gap: 50px;
+}

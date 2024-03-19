@@ -1,16 +1,14 @@
+import { PinnedVideoDetail, PinnedVideos } from '../../features/mainSlice'
 import Video from './Video/video'
 import styles from './videos.module.css'
-type video = {
-  thumbnail: string
-}
 type Param = {
-  videos: video[]
+  videos: PinnedVideos[]
 }
 
 const Videos = ({ videos }: Param) => {
   return (
     <div className={styles.videos}>
-      {videos.map((item: video, idx: number) => {
+      {videos?.detail.map((item: PinnedVideoDetail, idx: number) => {
         return <Video video={item} key={idx} />
       })}
     </div>

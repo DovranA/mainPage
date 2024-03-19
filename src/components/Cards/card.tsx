@@ -1,19 +1,22 @@
 import { RiVideoLine } from 'react-icons/ri'
 import { IoPlay } from 'react-icons/io5'
 type Props = {
-  img: string
-  count: number
-  title: string
-  date: string
+  detail: SaylananlarDetail
 }
 import styles from './card.module.css'
-const Card = ({ img, count, title, date }: Props) => {
+import { SaylananlarDetail } from '../../features/mainSlice'
+import moment from 'moment'
+const Card = ({ detail }: Props) => {
   return (
     <div className={styles.card}>
-      <img src={img} alt={String(img)} className={styles.bgImage} />
+      <img
+        src={'http://' + detail?.videos[0]?.image_path}
+        alt={String(detail.videos[0]?.image_path)}
+        className={styles.bgImage}
+      />
       <span className={styles.cardIcon}>
         <RiVideoLine />
-        {count}
+        {detail.total_videos}
       </span>
       <div className={styles.playBtn}>
         <IoPlay className={styles.playBtnIcon} />
@@ -21,8 +24,10 @@ const Card = ({ img, count, title, date }: Props) => {
       </div>
       <div className={styles.info}>
         <div className={styles.infoData}>
-          <h3 className={styles.infoTitle}>{title}</h3>
-          <p className={styles.infoDate}>{date}</p>
+          <h3 className={styles.infoTitle}>{detail.username}</h3>
+          <p className={styles.infoDate}>
+            {moment(detail.videos[0]?.created_at).format('DD.MM.YYYY')}
+          </p>
         </div>
       </div>
     </div>

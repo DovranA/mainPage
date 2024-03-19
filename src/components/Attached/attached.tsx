@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux'
 import Videos from '../Videos/videos'
 import styles from './attached.module.css'
-import { SelectVideo } from '../../features/videoSlice'
+import { SelectPinnedVideos } from '../../features/mainSlice'
 const Attached = () => {
-  const videos = useSelector(SelectVideo)
-  // console.log(videos)
+  const pinnedVideos = useSelector(SelectPinnedVideos)
   return (
     <div className={styles.attached}>
       <span className={styles.title}>Berkidilenler</span>
-      <Videos videos={videos} />
+      <Videos videos={pinnedVideos} />
       <div className={styles.more}>
         <button className={styles.btn}>More</button>
       </div>

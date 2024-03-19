@@ -12,7 +12,6 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [passVisible, setPassVisible] = useState(false)
 
-  console.log(password)
   return state.profile ? (
     <div
       // onClick={() => dispatch({ type: 'setProfile', payload: false })}
