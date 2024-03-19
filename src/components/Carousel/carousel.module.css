@@ -34,11 +34,11 @@
 }
 
 .arrowLeft {
-  z-index: 99;
+  z-index: 1;
   left: 1rem;
 }
 .arrowRight {
-  z-index: 99;
+  z-index: 1;
   right: 1rem;
 }
 

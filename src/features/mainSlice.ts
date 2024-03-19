@@ -30,10 +30,10 @@ export type SaylananlarDetail = {
   user_id: number | null
   username: string | null
   total_videos: number | null
-  videos: Video[]
+  videos: video[]
 }
 
-export type Video = {
+export type video = {
   id: number | null
   videofile: string | null
   image_path: string | null

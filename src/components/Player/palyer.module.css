@@ -1,0 +1,298 @@
+.playerMain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.314);
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+}
+
+.videoSpace {
+  height: 100%;
+  flex: 7;
+  background-color: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  /* background-color: black; */
+  display: grid;
+  place-items: center;
+}
+.app__videos {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  max-width: 450px;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.app__videos::-webkit-scrollbar {
+  display: none;
+}
+/* for IE Safari*/
+.app__videos {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.video {
+  position: relative;
+  width: 480px;
+  height: 90vh;
+  scroll-snap-align: start;
+  border-radius: 20px;
+  /* box-shadow: 0px 2px 8px 4px red; */
+}
+
+.video__player {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.infoSpace {
+  height: 100%;
+  display: flex;
+  flex: 3;
+  background-color: #fff;
+}
+.controllers {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  font-size: 2rem;
+}
+.controllersRight {
+  right: 0;
+  padding-right: 20px;
+}
+.controllersLeft {
+  padding-left: 20px;
+  left: 0;
+}
+
+.videoBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.controllersGroup {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.controllersCenter {
+  position: absolute;
+  top: calc(50% - 80px);
+}
+.videoVolume {
+  border-radius: 50px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 150px;
+}
+.videoVolume > input {
+  rotate: -90deg;
+}
+
+.videoContent {
+  position: absolute;
+  top: calc(50% - 175px);
+}
+.count {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  padding-top: 10px;
+}
+.videoContentItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.videoContentBtn {
+  background-color: transparent;
+  border: 3px solid black;
+}
+
+/*generated with Input range slider CSS style generator (version 20211225)
+https://toughengineer.github.io/demo/slider-styler*/
+.styledSlider {
+  height: 2.3em;
+  -webkit-appearance: none;
+}
+
+/*progress support*/
+.styledSlider.sliderProgress {
+  --range: calc(var(--max) - var(--min));
+  --ratio: calc((var(--value) - var(--min)) / var(--range));
+  --sx: calc(0.5 * 2.2em + var(--ratio) * (100% - 2.2em));
+}
+
+.styledSlider:focus {
+  outline: none;
+}
+
+/*webkit*/
+.styledSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 1.3em;
+  background: #000000;
+  border: none;
+  box-shadow: 0 0 2px black;
+  margin-top: calc(max((1em - 1px - 1px) * 0.5, 0px) - 2.2em * 0.5);
+}
+
+.styledSlider::-webkit-slider-runnable-track {
+  height: 1em;
+  border: 1px solid #b2b2b2;
+  border-radius: 0.5em;
+  background: #efefef;
+  box-shadow: none;
+}
+
+.styledSlider:hover::-webkit-slider-runnable-track {
+  background: #e5e5e5;
+  border-color: #9a9a9a;
+}
+
+.styledSlider:active::-webkit-slider-runnable-track {
+  background: #f5f5f5;
+  border-color: #c1c1c1;
+}
+
+.styledSlider.sliderProgress::-webkit-slider-runnable-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #efefef;
+}
+
+.styledSlider.sliderProgress:hover::-webkit-slider-runnable-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #e5e5e5;
+}
+
+.styledSlider.sliderProgress:active::-webkit-slider-runnable-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #f5f5f5;
+}
+
+/*mozilla*/
+.styledSlider::-moz-range-thumb {
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 1.3em;
+  background: #000000;
+  border: none;
+  box-shadow: 0 0 2px black;
+}
+
+.styledSlider::-moz-range-track {
+  height: max(calc(1em - 1px - 1px), 0px);
+  border: 1px solid #b2b2b2;
+  border-radius: 0.5em;
+  background: #efefef;
+  box-shadow: none;
+}
+
+.styledSlider:hover::-moz-range-track {
+  background: #e5e5e5;
+  border-color: #9a9a9a;
+}
+
+.styledSlider:active::-moz-range-track {
+  background: #f5f5f5;
+  border-color: #c1c1c1;
+}
+
+.styledSlider.sliderProgress::-moz-range-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #efefef;
+}
+
+.styledSlider.sliderProgress:hover::-moz-range-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #e5e5e5;
+}
+
+.styledSlider.sliderProgress:active::-moz-range-track {
+  background: linear-gradient(#000000, #000000) 0 / var(--sx) 100% no-repeat,
+    #f5f5f5;
+}
+
+/*ms*/
+.styledSlider::-ms-fill-upper {
+  background: transparent;
+  border-color: transparent;
+}
+
+.styledSlider::-ms-fill-lower {
+  background: transparent;
+  border-color: transparent;
+}
+
+.styledSlider::-ms-thumb {
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 1.3em;
+  background: #000000;
+  border: none;
+  box-shadow: 0 0 2px black;
+  margin-top: 0;
+  box-sizing: border-box;
+}
+
+.styledSlider::-ms-track {
+  height: 1em;
+  border-radius: 0.5em;
+  background: #efefef;
+  border: 1px solid #b2b2b2;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.styledSlider:hover::-ms-track {
+  background: #e5e5e5;
+  border-color: #9a9a9a;
+}
+
+.styledSlider:active::-ms-track {
+  background: #f5f5f5;
+  border-color: #c1c1c1;
+}
+
+.styledSlider.sliderProgress::-ms-fill-lower {
+  height: max(calc(1em - 1px - 1px), 0px);
+  border-radius: 0.5em 0 0 0.5em;
+  margin: -1px 0 -1px -1px;
+  background: #000000;
+  border: 1px solid #b2b2b2;
+  border-right-width: 0;
+}
+
+.styledSlider.sliderProgress:hover::-ms-fill-lower {
+  background: #000000;
+  border-color: #9a9a9a;
+}
+
+.styledSlider.sliderProgress:active::-ms-fill-lower {
+  background: #000000;
+  border-color: #c1c1c1;
+}

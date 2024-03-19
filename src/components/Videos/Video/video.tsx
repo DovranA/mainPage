@@ -6,14 +6,23 @@ import { FiEye } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
 import { PinnedVideoDetail } from '../../../features/mainSlice'
 import moment from 'moment'
+import { useAppDispatch } from '../../../app/hooks'
+import { addFromVideos, videoPlayerVisable } from '../../../features/videoSlice'
 
 type Param = {
   video: PinnedVideoDetail
 }
 const Video = ({ video }: Param) => {
+  const dispatch = useAppDispatch()
   return (
     <div className={styles.video}>
-      <div className={styles.preview}>
+      <div
+        className={styles.preview}
+        onClick={() => {
+          dispatch(videoPlayerVisable(true))
+          dispatch(addFromVideos('berkidilenler'))
+        }}
+      >
         <img
           src={'http://' + video.image_path}
           alt='video'

@@ -77,4 +77,5 @@
   /* top: 400px; */
   object-fit: cover;
   border-radius: 0.5rem;
+  z-index: -1;
 }
