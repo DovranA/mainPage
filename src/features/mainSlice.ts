@@ -2,18 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../app/store'
 import axios from 'axios'
 export type carousel = {
-  id: number
-  images: { img: string }[] | undefined
-  name: string
-  external_link: string
-  internal_link: string
-  main_page_banner: boolean
-  top_hashaplar_page_banner: boolean
-  top_videos_page_banner: boolean
-  trends_page_banner: boolean
-  contactus_page_banner: boolean
-  start: string
-  end: string
+  id: number | null | undefined
+  images: { img: string | null | undefined }[] | undefined
+  name: string | null | undefined
+  external_link: string | null | undefined
+  internal_link: string | null | undefined
+  main_page_banner: boolean | null | undefined
+  top_hashaplar_page_banner: boolean | null | undefined
+  top_videos_page_banner: boolean | null | undefined
+  trends_page_banner: boolean | null | undefined
+  contactus_page_banner: boolean | null | undefined
+  start: string | null | undefined
+  end: string | null | undefined
 }
 export type top = {
   position?: string | null

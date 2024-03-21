@@ -8,10 +8,10 @@ const Carousel = () => {
   const carousel = useSelector(SelectBanner)
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
-    setSlide(slide === carousel?.images.length - 1 ? 0 : slide + 1)
+    setSlide(slide === Number(carousel?.images?.length) - 1 ? 0 : slide + 1)
   }
   const prevSlide = () => {
-    setSlide(slide === 0 ? carousel?.images.length - 1 : slide - 1)
+    setSlide(slide === 0 ? Number(carousel?.images?.length) - 1 : slide - 1)
   }
   return (
     <div className={styles.carousel}>
@@ -20,10 +20,10 @@ const Carousel = () => {
         onClick={prevSlide}
       />
       <div className={styles.carouselTrack}>
-        {carousel?.images.map((item: any, idx: number) => {
+        {carousel?.images?.map((item: any, idx: number) => {
           return (
             <img
-              src={'http://' + item.img}
+              src={String(item.img)}
               alt={String(idx)}
               key={idx}
               className={
@@ -41,7 +41,7 @@ const Carousel = () => {
       />
 
       <span className={styles.indicators}>
-        {carousel?.images.map((_: any, idx: number) => {
+        {carousel?.images?.map((_: any, idx: number) => {
           return (
             <button
               key={idx}

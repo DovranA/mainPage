@@ -12,7 +12,7 @@ const Trends = () => {
           {trends?.total ? '(' + trends.total + ')' : ''}
         </span>
         <img
-          src={'http://' + trends?.image}
+          src={String(trends?.image)}
           alt={String(trends?.total)}
           className='image-fit'
         />

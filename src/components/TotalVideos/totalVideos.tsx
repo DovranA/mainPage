@@ -12,7 +12,7 @@ const TotalVideos = () => {
           {totalVideos?.total ? '(' + totalVideos.total + ')' : ''}
         </span>
         <img
-          src={'http://' + totalVideos?.image}
+          src={String(totalVideos?.image)}
           alt={String(totalVideos?.total)}
           className='image-fit'
         />

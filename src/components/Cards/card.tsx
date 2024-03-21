@@ -6,11 +6,14 @@ type Props = {
 import styles from './card.module.css'
 import { SaylananlarDetail } from '../../features/mainSlice'
 import moment from 'moment'
+import { useAppDispatch } from '../../app/hooks'
+import { addVideos, videoPlayerVisable } from '../../features/videoSlice'
 const Card = ({ detail }: Props) => {
+  const dispatch = useAppDispatch()
   return (
     <div className={styles.card}>
       <img
-        src={'http://' + detail?.videos[0]?.image_path}
+        src={String(detail?.videos[0]?.image_path)}
         alt={String(detail.videos[0]?.image_path)}
         className={styles.bgImage}
       />
@@ -19,7 +22,13 @@ const Card = ({ detail }: Props) => {
         {detail.total_videos}
       </span>
       <div className={styles.playBtn}>
-        <IoPlay className={styles.playBtnIcon} />
+        <IoPlay
+          className={styles.playBtnIcon}
+          onClick={() => {
+            dispatch(addVideos(detail.videos))
+            dispatch(videoPlayerVisable(true))
+          }}
+        />
         <span className={styles.playBtnBg}></span>
       </div>
       <div className={styles.info}>

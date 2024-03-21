@@ -22,7 +22,7 @@
 }
 .app__videos {
   position: relative;
-  height: 90vh;
+  height: 85vh;
   width: 100%;
   max-width: 450px;
   overflow: scroll;
@@ -39,13 +39,27 @@
 }
 .video {
   position: relative;
-  width: 480px;
-  height: 90vh;
+  width: fit-content;
+  height: fit-content;
   scroll-snap-align: start;
   border-radius: 20px;
-  /* box-shadow: 0px 2px 8px 4px red; */
 }
-
+.duration {
+  display: flex;
+  width: 70px;
+  color: #fff;
+}
+.videoDurSlice {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  padding: 10px;
+}
+.slice {
+  width: 100%;
+}
 .video__player {
   object-fit: fill;
   width: 100%;

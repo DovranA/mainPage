@@ -12,7 +12,7 @@ const TopUsers = () => {
           {topUsers?.total ? '(' + topUsers.total + ')' : ''}
         </span>
         <img
-          src={'http://' + topUsers?.image}
+          src={String(topUsers?.image)}
           alt={String(topUsers?.total)}
           className='image-fit'
         />
