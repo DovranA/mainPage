@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './palyer.module.css'
 import { video } from '../../features/mainSlice'
 import { useSelector } from 'react-redux'
-import { PlayerOptions, setPause } from '../../features/videoSlice'
+import { PlayerOptions, setPause, setVideo } from '../../features/videoSlice'
 import { useAppDispatch } from '../../app/hooks'
-import { current } from '@reduxjs/toolkit'
 type Props = {
   videocontent: video | null
 }
@@ -14,10 +13,11 @@ const Video = ({ videocontent }: Props) => {
   const [progress, setProgress] = useState<number>(0)
   const [videoTime, setVideoTime] = useState<number>(0)
   const [currentTime, setCurrentTime] = useState<number>(0)
-
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => {
     setVideoTime(Number(videoRef.current?.duration))
+    setProgress(0)
+    dispatch(setVideo(options.firstVideo?.id))
   }, [])
   useEffect(() => {
     if (options.duringKey === 'right') {
@@ -32,7 +32,7 @@ const Video = ({ videocontent }: Props) => {
     }
   }, [options.duringKey])
   useEffect(() => {
-    if (!options.pause && videocontent?.id === options.videoId) {
+    if (!options.pause && videocontent?.id === options?.video?.id) {
       videoRef.current?.play()
       setVideoTime(Number(videoRef.current?.duration))
     } else {
@@ -66,14 +66,24 @@ const Video = ({ videocontent }: Props) => {
         onFocus={() => {
           console.log('first')
         }}
-        className={styles.video__player}
+        className={
+          videocontent?.is_vertical
+            ? `${styles.video__player} ${styles.fitWidth}`
+            : `${styles.video__player} ${styles.fullWidth}`
+        }
         onClick={() => handleVideoPress()}
         loop
         ref={videoRef}
       >
         <source src={String(videocontent?.videofile)} type='video/mp4'></source>
       </video>
-      <span className={styles.videoDurSlice}>
+      <span
+        className={
+          videocontent?.is_vertical
+            ? `${styles.videoDurSlice} ${styles.fitWidth}`
+            : `${styles.videoDurSlice} ${styles.fullWidth}`
+        }
+      >
         <span className={styles.duration}>
           {Math.floor(currentTime / 60) +
             ':' +

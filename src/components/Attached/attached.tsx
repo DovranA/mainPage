@@ -2,14 +2,21 @@ import { useSelector } from 'react-redux'
 import Videos from '../Videos/videos'
 import styles from './attached.module.css'
 import { SelectPinnedVideos } from '../../features/mainSlice'
-import { SelectFromVideos, addVideos } from '../../features/videoSlice'
+import {
+  PlayerOptions,
+  SelectFromVideos,
+  addVideos,
+} from '../../features/videoSlice'
 import { useAppDispatch } from '../../app/hooks'
 const Attached = () => {
   const pinnedVideos = useSelector(SelectPinnedVideos)
   const fromVideos = useSelector(SelectFromVideos)
   const dispach = useAppDispatch()
+  const option = useSelector(PlayerOptions)
   if (fromVideos === 'berkidilenler') {
-    dispach(addVideos({ videos: pinnedVideos?.detail }))
+    dispach(
+      addVideos({ videos: pinnedVideos?.detail, id: option.firstVideo?.id })
+    )
   }
   return (
     <div className={styles.attached}>

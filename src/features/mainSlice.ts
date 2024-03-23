@@ -133,10 +133,10 @@ const initialState: main = {
   top: null,
 }
 
-export const handleFetch = createAsyncThunk<any, any>('main', async () => {
+export const handleFetch = createAsyncThunk('main', async () => {
   try {
-    const res = await axios.get('http://95.85.127.108/api/videos/mainpage')
-    // const res = await axios.get('http://localhost:8000/')
+    const res = await axios.get('http://dev.tmbiz.info/api/videos/mainpage')
+    console.log(res)
     return res.data
   } catch (error) {
     console.log(error)
@@ -154,15 +154,16 @@ const mainSlice = createSlice({
         ;(state.loading = true), (state.error = null)
       })
       .addCase(handleFetch.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.loading = false
-        state.banner = action.payload.banner
-        state.brands = action.payload.brands
-        state.pinnedVideos = action.payload.pinnedVideos
-        state.saylananlar = action.payload.saylananlar
-        state.topusers = action.payload.topusers
-        state.topvideos = action.payload.topvideos
-        state.totalvideos = action.payload.totalvideos
-        state.trends = action.payload.trends
+        // state.banner = action.payload.banner
+        // state.brands = action.payload.brands
+        // state.pinnedVideos = action.payload.pinnedVideos
+        // state.saylananlar = action.payload.saylananlar
+        // state.topusers = action.payload.topusers
+        // state.topvideos = action.payload.topvideos
+        // state.totalvideos = action.payload.totalvideos
+        // state.trends = action.payload.trends
       })
       .addCase(handleFetch.rejected, (state, action) => {
         state.loading = false

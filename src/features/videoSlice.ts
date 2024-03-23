@@ -1,12 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../app/store'
 import { video } from './mainSlice'
+import axios from 'axios'
 export type options = {
   pause: boolean
-  videoId: number | null
+  video: video | null | undefined
   child: number
   fullScreen: boolean
   duringKey: string
+  fullWidth: boolean
+  firstVideo: video | null | undefined
 }
 type videoPlayer = {
   videos: video[]
@@ -25,24 +28,50 @@ const initialState: videoPlayer = {
   from: '',
   options: {
     pause: false,
-    videoId: null,
     child: 0,
     fullScreen: false,
     duringKey: '',
+    video: null,
+    fullWidth: false,
+    firstVideo: null,
   },
 }
+
+export const likeVideo = createAsyncThunk<any, any>(
+  'like',
+  async (id: number) => {
+    try {
+      const res = await axios.put(
+        `https://dev.tmbiz.info/api/videos/${id}/like`
+      )
+      return res.data
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
 const videosSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    setFirstVideo: (state, action) => {
+      state.options.firstVideo = action.payload
+    },
     setDuringKey: (state, action) => {
       state.options.duringKey = action.payload
     },
     setFullScreen: (state, action) => {
       state.options.fullScreen = action.payload
     },
-    setVideoId: (state, action) => {
-      state.options.videoId = action.payload
+    setOptionsVideo: (state, action) => {
+      state.options.video = action.payload
+    },
+    setVideo: (state, action) => {
+      const video = state.videos.find(
+        (item: video) => item.id === action.payload
+      )
+      state.options.video = video
     },
     setChild: (state, action) => {
       state.options.child = action.payload
@@ -50,20 +79,18 @@ const videosSlice = createSlice({
     setPause: (state, action) => {
       state.options.pause = action.payload
     },
-    setFirstVideo: (state, action) => {
-      console.log(action.payload)
-      // if (state.videos.length) {
-      //   const findItem: video | undefined = state.videos.find(
-      //     (item) => item.id === action.payload
-      //   )
-      //   const newArray = state.videos.filter(
-      //     (item) => item.id != action.payload
-      //   )
-      //   state.videos = [findItem, ...newArray]
-      // }
-    },
     addVideos: (state, action) => {
-      state.videos = action.payload?.videos
+      if (action.payload?.id) {
+        const findVideo: any = action.payload?.videos.find(
+          (item: video) => item.id === action.payload?.id
+        )
+        const newVideo = action.payload.videos.filter(
+          (item: video) => item.id != action.payload?.id
+        )
+        state.videos = [findVideo, ...newVideo]
+      } else {
+        state.videos = action.payload?.videos
+      }
     },
     addFromVideos: (state, action) => {
       state.from = action.payload
@@ -79,6 +106,29 @@ const videosSlice = createSlice({
       }
       state.videoPlayer = action.payload
     },
+    setFullWidth: (state, action) => {
+      state.options.fullWidth = action.payload
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(likeVideo.pending, (state) => {
+        ;(state.loading = true), (state.error = null)
+      })
+      .addCase(likeVideo.fulfilled, (state, action) => {
+        state.loading = false
+        const id = state.options.video?.id
+        state.videos?.map((item: video) => {
+          if (item.id === id) {
+            item.like_count = action.payload
+          }
+          return item
+        })
+      })
+      .addCase(likeVideo.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
   },
 })
 export const {
@@ -86,11 +136,12 @@ export const {
   addFromVideos,
   addVideos,
   setPause,
-  setVideoId,
   setChild,
-  setFirstVideo,
   setFullScreen,
   setDuringKey,
+  setVideo,
+  setFirstVideo,
+  setOptionsVideo,
 } = videosSlice.actions
 export default videosSlice.reducer
 

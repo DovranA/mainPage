@@ -7,11 +7,21 @@ import styles from './card.module.css'
 import { SaylananlarDetail } from '../../features/mainSlice'
 import moment from 'moment'
 import { useAppDispatch } from '../../app/hooks'
-import { addVideos, videoPlayerVisable } from '../../features/videoSlice'
+import {
+  addVideos,
+  setFirstVideo,
+  videoPlayerVisable,
+} from '../../features/videoSlice'
 const Card = ({ detail }: Props) => {
   const dispatch = useAppDispatch()
   return (
-    <div className={styles.card}>
+    <div
+      className={styles.card}
+      onClick={() => {
+        dispatch(addVideos({ videos: detail?.videos }))
+        dispatch(videoPlayerVisable(true))
+      }}
+    >
       <img
         src={String(detail?.videos[0]?.image_path)}
         alt={String(detail.videos[0]?.image_path)}

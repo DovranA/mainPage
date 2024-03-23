@@ -3,11 +3,13 @@ import { useAppDispatch } from '../../app/hooks'
 import {
   PlayerOptions,
   SelectVideos,
+  addVideos,
+  likeVideo,
   setChild,
   setDuringKey,
   setFullScreen,
   setPause,
-  setVideoId,
+  setVideo,
   videoPlayerVisable,
 } from '../../features/videoSlice'
 import styles from './palyer.module.css'
@@ -21,18 +23,21 @@ import { GoScreenFull } from 'react-icons/go'
 import { FaHeart } from 'react-icons/fa'
 import { PiShareFat } from 'react-icons/pi'
 import { LuDownload } from 'react-icons/lu'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import VideoContent from './video'
+import { CiSearch } from 'react-icons/ci'
+import { useParams } from 'react-router-dom'
+
 const Player = () => {
+  const { id } = useParams()
+  useEffect(() => {
+    console.log(id)
+  }, [id])
   const dispatch = useAppDispatch()
   const options = useSelector(PlayerOptions)
   const videos = useSelector(SelectVideos)
-  const [info, setInfo] = useState(false)
   const playerRef = useRef<HTMLDivElement>(null)
   const videoSpace = useRef<HTMLDivElement>(null)
-  // const [child, setChild] = useState<number>(options?.child)
-  const [leftRigthKey, setLeftRightKey] = useState<string>('')
-
   const incChild = () => {
     if (options.child < videos?.length - 1)
       dispatch(setChild(options?.child + 1))
@@ -59,9 +64,12 @@ const Player = () => {
         break
     }
   }
+  // useEffect(() => {
+  //   dispatch(setVideo(videos[0].id))
+  // }, [videos])
   useEffect(() => {
-    // playerRef.current?.children[0]?.scrollIntoView({})
     videoSpace.current?.focus()
+    dispatch(setChild(0))
   }, [])
   useEffect(() => {
     playerRef.current?.children[options.child]?.scrollIntoView({
@@ -69,9 +77,8 @@ const Player = () => {
       block: 'center',
       inline: 'start',
     })
-    dispatch(setVideoId(videos[options.child]?.id))
-  })
-
+    dispatch(setVideo(videos[options.child]?.id))
+  }, [options.child])
   return (
     <div
       className={styles.playerMain}
@@ -83,6 +90,10 @@ const Player = () => {
       }}
     >
       <span className={styles.videoSpace}>
+        <span className={styles.search}>
+          <input type='text' placeholder='Gozleg' />
+          <CiSearch />
+        </span>
         <div className={styles.app__videos} ref={playerRef}>
           {videos.map((video: video, idx: number) => {
             return <VideoContent videocontent={video} key={idx} />
@@ -93,8 +104,10 @@ const Player = () => {
             className={styles.videoBtn}
             onClick={() => {
               dispatch(videoPlayerVisable(false))
+              dispatch(addVideos({ videos: [] }))
               dispatch(setPause(true))
               dispatch(setChild(0))
+              dispatch(setFullScreen(true))
             }}
           >
             <IoClose />
@@ -123,12 +136,6 @@ const Player = () => {
                 type='range'
                 max={25}
                 className={`${styles.styledSlider} ${styles.sliderProgress}`}
-                // style={{
-                //   height: '100%',
-                //   '--value': 75,
-                //   '--min': 0,
-                //   '--max': 100,
-                // }}
               />
             </span>
             <span className={styles.videoBtn}>
@@ -155,8 +162,13 @@ const Player = () => {
                   color: 'red',
                   padding: '3px',
                 }}
+                onClick={() => {
+                  likeVideo(options?.video?.id)
+                  console.log('liked')
+                  console.log(options?.video?.id)
+                }}
               />
-              <p className={styles.count}>25K</p>
+              <p className={styles.count}>{options.video?.like_count}</p>
             </span>
             <span className={styles.videoContentItem}>
               <PiShareFat
@@ -167,10 +179,30 @@ const Player = () => {
                   color: 'green',
                   padding: '3px',
                 }}
+                onClick={() => {
+                  navigator.clipboard
+                    .writeText(
+                      `http://storage.tmbiz.info/api/videos/${options?.video?.id}?share=${options?.video?.share_token}`
+                    )
+                    .then(() => {
+                      console.log('copyed')
+                    })
+                    .catch((err) => {
+                      console.log(err)
+                    })
+                }}
               />
-              <p className={styles.count}>25K</p>
+              <p className={styles.count}>{options.video?.share_count}</p>
             </span>
-            <span className={styles.videoContentItem}>
+            <span
+              className={styles.videoContentItem}
+              onClick={() => {
+                // downloadClick(
+                //   String(options.video?.videofile),
+                //   Number(options.video?.id)
+                // )
+              }}
+            >
               <LuDownload
                 className={styles.videoBtn}
                 style={{
@@ -180,7 +212,7 @@ const Player = () => {
                   padding: '3px',
                 }}
               />
-              <p className={styles.count}>25K</p>
+              <p className={styles.count}>{options.video?.download_count}</p>
             </span>
           </span>
           <span

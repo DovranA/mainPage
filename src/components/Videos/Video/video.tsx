@@ -1,5 +1,4 @@
 import styles from './video.module.css'
-import image1 from '../../../assets/surat1.jpg'
 import { IoPlay } from 'react-icons/io5'
 import { FiDownload } from 'react-icons/fi'
 import { FiEye } from 'react-icons/fi'
@@ -24,7 +23,7 @@ const Video = ({ video }: Param) => {
         className={styles.preview}
         onClick={() => {
           dispatch(addFromVideos('berkidilenler'))
-          dispatch(setFirstVideo(video.id))
+          dispatch(setFirstVideo(video))
           dispatch(videoPlayerVisable(true))
         }}
       >
