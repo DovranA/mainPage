@@ -23,7 +23,7 @@ import { GoScreenFull } from 'react-icons/go'
 import { FaHeart } from 'react-icons/fa'
 import { PiShareFat } from 'react-icons/pi'
 import { LuDownload } from 'react-icons/lu'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import VideoContent from './video'
 import { CiSearch } from 'react-icons/ci'
 import { useParams } from 'react-router-dom'
@@ -33,6 +33,7 @@ const Player = () => {
   useEffect(() => {
     console.log(id)
   }, [id])
+  const [darkMode, setDarkMode] = useState(false)
   const dispatch = useAppDispatch()
   const options = useSelector(PlayerOptions)
   const videos = useSelector(SelectVideos)
@@ -89,7 +90,10 @@ const Player = () => {
         dispatch(setDuringKey(''))
       }}
     >
-      <span className={styles.videoSpace}>
+      <span
+        className={styles.videoSpace}
+        style={darkMode ? { backgroundColor: 'rgba(0, 0, 0, 0.742)' } : {}}
+      >
         <span className={styles.search}>
           <input type='text' placeholder='Gozleg' />
           <CiSearch />
@@ -109,23 +113,43 @@ const Player = () => {
               dispatch(setChild(0))
               dispatch(setFullScreen(true))
             }}
+            style={
+              darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+            }
           >
             <IoClose />
           </span>
           <span
             className={`${styles.controllersGroup} ${styles.controllersCenter}`}
           >
-            <span className={styles.videoBtn} onClick={() => incChild()}>
+            <span
+              className={styles.videoBtn}
+              onClick={() => incChild()}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <IoIosArrowUp />
             </span>
-            <span className={styles.videoBtn} onClick={() => decChild()}>
+            <span
+              className={styles.videoBtn}
+              onClick={() => decChild()}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <IoIosArrowDown />
             </span>
           </span>
           <span
             className={`${styles.controllersGroup} ${styles.controllersBottom}`}
           >
-            <span className={styles.videoBtn}>
+            <span
+              className={styles.videoBtn}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <span style={{ display: 'flex', flexDirection: 'column' }}>
                 <TiArrowSortedUp style={{ marginBottom: '-10px' }} />
                 <TiArrowSortedUp style={{ marginTop: '-10px' }} />
@@ -138,7 +162,12 @@ const Player = () => {
                 className={`${styles.styledSlider} ${styles.sliderProgress}`}
               />
             </span>
-            <span className={styles.videoBtn}>
+            <span
+              className={styles.videoBtn}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <MdVolumeUp />
             </span>
           </span>
@@ -149,6 +178,9 @@ const Player = () => {
             // onClick={() => {
             //   setInfo(!info)
             // }}
+            style={
+              darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+            }
           >
             <IoMdInformation />
           </span>
@@ -163,7 +195,7 @@ const Player = () => {
                   padding: '3px',
                 }}
                 onClick={() => {
-                  likeVideo(options?.video?.id)
+                  dispatch(likeVideo(options?.video?.id))
                   console.log('liked')
                   console.log(options?.video?.id)
                 }}
@@ -218,10 +250,23 @@ const Player = () => {
           <span
             className={`${styles.controllersGroup} ${styles.controllersBottom}`}
           >
-            <span className={styles.videoBtn}>
+            <span
+              className={styles.videoBtn}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <MdScreenRotation />
             </span>
-            <span className={styles.videoBtn}>
+            <span
+              className={styles.videoBtn}
+              onClick={() => {
+                setDarkMode(!darkMode)
+              }}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <MdOutlineWbSunny />
             </span>
             <span
@@ -229,13 +274,23 @@ const Player = () => {
               onClick={() => {
                 dispatch(setFullScreen(!options.fullScreen))
               }}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
             >
               <GoScreenFull />
             </span>
           </span>
         </div>
       </span>
-      {options.fullScreen ? <span className={styles.infoSpace}></span> : <></>}
+      {options.fullScreen ? (
+        <span
+          className={styles.infoSpace}
+          style={darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}}
+        ></span>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

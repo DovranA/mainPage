@@ -18,24 +18,24 @@ const Card = ({ detail }: Props) => {
     <div
       className={styles.card}
       onClick={() => {
-        dispatch(addVideos({ videos: detail?.videos }))
+        // dispatch(addVideos({ videos: detail?.videos }))
         dispatch(videoPlayerVisable(true))
       }}
     >
       <img
-        src={String(detail?.videos[0]?.image_path)}
-        alt={String(detail.videos[0]?.image_path)}
+        src={String(detail?.image)}
+        alt={String(detail?.name)}
         className={styles.bgImage}
       />
       <span className={styles.cardIcon}>
         <RiVideoLine />
-        {detail.total_videos}
+        {detail?.total_views}
       </span>
       <div className={styles.playBtn}>
         <IoPlay
           className={styles.playBtnIcon}
           onClick={() => {
-            dispatch(addVideos(detail.videos))
+            // dispatch(addVideos(detail.videos))
             dispatch(videoPlayerVisable(true))
           }}
         />
@@ -43,9 +43,9 @@ const Card = ({ detail }: Props) => {
       </div>
       <div className={styles.info}>
         <div className={styles.infoData}>
-          <h3 className={styles.infoTitle}>{detail.username}</h3>
+          <h3 className={styles.infoTitle}>{detail.name}</h3>
           <p className={styles.infoDate}>
-            {moment(detail.videos[0]?.created_at).format('DD.MM.YYYY')}
+            {moment(detail?.created_at).format('DD.MM.YYYY')}
           </p>
         </div>
       </div>

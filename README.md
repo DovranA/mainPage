@@ -6,3 +6,8 @@
 <img width="100%" src="./public/Screenshot (46).png">
 <img width="100%" src="./public/Screenshot (47).png">
 </div>
+
+24.03.2024: vite cors error duzetdim
+
+25.03.2024: sayalananlar structure tazeledim,
+dark theme in video player

@@ -27,10 +27,12 @@ type Saylananlar = {
 }
 
 export type SaylananlarDetail = {
-  user_id: number | null
-  username: string | null
-  total_videos: number | null
-  videos: video[]
+  id: number | null
+  name: string | null
+  image: string | null
+  total_views: number | null
+  video_count: number | null
+  created_at: string | null
 }
 
 export type video = {
@@ -52,7 +54,7 @@ export type video = {
   pinned_end_date: string | null
   view_count: number | null
   share_count: number | null
-  like_count: number | null
+  like_count: number | null | undefined
   share_token: string | null
   download_count: number | null
   posted_at: string | null
@@ -133,9 +135,11 @@ const initialState: main = {
   top: null,
 }
 
-export const handleFetch = createAsyncThunk('main', async () => {
+export const handleFetch = createAsyncThunk<any, any>('main', async () => {
   try {
-    const res = await axios.get('http://dev.tmbiz.info/api/videos/mainpage')
+    const res = await axios.get('/api/videos/mainpage', {
+      withCredentials: true,
+    })
     console.log(res)
     return res.data
   } catch (error) {
@@ -154,16 +158,17 @@ const mainSlice = createSlice({
         ;(state.loading = true), (state.error = null)
       })
       .addCase(handleFetch.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false
-        // state.banner = action.payload.banner
-        // state.brands = action.payload.brands
-        // state.pinnedVideos = action.payload.pinnedVideos
-        // state.saylananlar = action.payload.saylananlar
-        // state.topusers = action.payload.topusers
-        // state.topvideos = action.payload.topvideos
-        // state.totalvideos = action.payload.totalvideos
-        // state.trends = action.payload.trends
+        const data = action.payload
+        console.log(data)
+        state.banner = data?.banner
+        state.brands = data?.brands
+        state.pinnedVideos = data?.pinnedVideos
+        state.saylananlar = data?.saylananlar
+        state.topusers = data?.topusers
+        state.topvideos = data?.topvideos
+        state.totalvideos = data?.totalvideos
+        state.trends = data?.trends
       })
       .addCase(handleFetch.rejected, (state, action) => {
         state.loading = false

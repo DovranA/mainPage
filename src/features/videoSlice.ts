@@ -40,10 +40,12 @@ const initialState: videoPlayer = {
 export const likeVideo = createAsyncThunk<any, any>(
   'like',
   async (id: number) => {
+    console.log(id)
     try {
-      const res = await axios.put(
-        `https://dev.tmbiz.info/api/videos/${id}/like`
-      )
+      const res = await axios.put(`/api/videos/${id}/like`, {
+        withCredentials: true,
+      })
+      console.log(res)
       return res.data
     } catch (error) {
       console.log(error)
@@ -118,12 +120,14 @@ const videosSlice = createSlice({
       .addCase(likeVideo.fulfilled, (state, action) => {
         state.loading = false
         const id = state.options.video?.id
-        state.videos?.map((item: video) => {
+        const newVideos = state.videos?.map((item: video) => {
           if (item.id === id) {
             item.like_count = action.payload
           }
           return item
         })
+        state.videos = newVideos
+        // state.options.video?.like_count = action.payload
       })
       .addCase(likeVideo.rejected, (state, action) => {
         state.loading = false
