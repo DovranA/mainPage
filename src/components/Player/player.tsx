@@ -8,6 +8,7 @@ import {
   setChild,
   setDuringKey,
   setFullScreen,
+  setLikeCount,
   setPause,
   setVideo,
   videoPlayerVisable,
@@ -27,7 +28,9 @@ import { useEffect, useRef, useState } from 'react'
 import VideoContent from './video'
 import { CiSearch } from 'react-icons/ci'
 import { useParams } from 'react-router-dom'
-
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import { duration } from 'moment'
 const Player = () => {
   const { id } = useParams()
   useEffect(() => {
@@ -68,6 +71,21 @@ const Player = () => {
   // useEffect(() => {
   //   dispatch(setVideo(videos[0].id))
   // }, [videos])
+  const [scaleHeart, setScaleHeart] = useState<number>(2)
+  const likeVideoTest = async (id: number) => {
+    try {
+      const { data } = await axios.put(`/api/videos/${id}/like`)
+      if (Number(options.video?.like_count) > Number(data)) {
+        setScaleHeart(2)
+      }
+      if (Number(options.video?.like_count) < Number(data)) {
+        setScaleHeart(0)
+      }
+      dispatch(setLikeCount(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     videoSpace.current?.focus()
     dispatch(setChild(0))
@@ -185,21 +203,32 @@ const Player = () => {
             <IoMdInformation />
           </span>
           <span className={`${styles.controllersGroup} ${styles.videoContent}`}>
-            <span className={styles.videoContentItem}>
-              <FaHeart
-                className={styles.videoBtn}
-                style={{
-                  backgroundColor: 'transparent',
-                  border: '3px solid red',
-                  color: 'red',
-                  padding: '3px',
+            <span
+              className={styles.videoContentItem}
+              onClick={() => {
+                likeVideoTest(options.video?.id)
+                console.log(videos)
+              }}
+            >
+              <motion.span
+                initial={{
+                  scale: 1,
                 }}
-                onClick={() => {
-                  dispatch(likeVideo(options?.video?.id))
-                  console.log('liked')
-                  console.log(options?.video?.id)
+                whileTap={{
+                  scale: scaleHeart,
                 }}
-              />
+                transition={{ duration: 0.3 }}
+              >
+                <FaHeart
+                  className={styles.videoBtn}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: '3px solid red',
+                    color: 'red',
+                    padding: '3px',
+                  }}
+                />
+              </motion.span>
               <p className={styles.count}>{options.video?.like_count}</p>
             </span>
             <span className={styles.videoContentItem}>
@@ -283,13 +312,23 @@ const Player = () => {
           </span>
         </div>
       </span>
-      {options.fullScreen ? (
-        <span
+      {options.fullScreen && (
+        <motion.span
+          initial={{
+            width: '100%',
+          }}
+          animate={{
+            x: 1,
+          }}
+          exit={{
+            x: 0,
+          }}
+          transition={{
+            delay: 1,
+          }}
           className={styles.infoSpace}
           style={darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}}
-        ></span>
-      ) : (
-        <></>
+        ></motion.span>
       )}
     </div>
   )

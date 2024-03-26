@@ -4,7 +4,7 @@ import { video } from './mainSlice'
 import axios from 'axios'
 export type options = {
   pause: boolean
-  video: video | null | undefined
+  video: any
   child: number
   fullScreen: boolean
   duringKey: string
@@ -111,29 +111,38 @@ const videosSlice = createSlice({
     setFullWidth: (state, action) => {
       state.options.fullWidth = action.payload
     },
+    setLikeCount: (state, action) => {
+      const id = state.options.video.id
+      const videoItems = [...state.videos]
+      const index = videoItems.findIndex((item: video) => item.id === id)
+      const video = videoItems[index]
+      video.like_count = action.payload
+      state.videos = videoItems
+      state.options.video.like_count = action.payload
+    },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(likeVideo.pending, (state) => {
-        ;(state.loading = true), (state.error = null)
-      })
-      .addCase(likeVideo.fulfilled, (state, action) => {
-        state.loading = false
-        const id = state.options.video?.id
-        const newVideos = state.videos?.map((item: video) => {
-          if (item.id === id) {
-            item.like_count = action.payload
-          }
-          return item
-        })
-        state.videos = newVideos
-        // state.options.video?.like_count = action.payload
-      })
-      .addCase(likeVideo.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.payload
-      })
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(likeVideo.pending, (state) => {
+  //       ;(state.loading = true), (state.error = null)
+  //     })
+  //     .addCase(likeVideo.fulfilled, (state, action) => {
+  //       state.loading = false
+  //       const id = state.options.video?.id
+  //       const newVideos = state.videos?.map((item: video) => {
+  //         if (item.id === id) {
+  //           item.like_count = action.payload
+  //         }
+  //         return item
+  //       })
+  //       state.videos = newVideos
+  //       // state.options.video?.like_count = action.payload
+  //     })
+  //     .addCase(likeVideo.rejected, (state, action) => {
+  //       state.loading = false
+  //       state.error = action.payload
+  //     })
+  // },
 })
 export const {
   videoPlayerVisable,
@@ -146,6 +155,7 @@ export const {
   setVideo,
   setFirstVideo,
   setOptionsVideo,
+  setLikeCount,
 } = videosSlice.actions
 export default videosSlice.reducer
 
