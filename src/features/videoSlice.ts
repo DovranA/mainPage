@@ -111,14 +111,20 @@ const videosSlice = createSlice({
     setFullWidth: (state, action) => {
       state.options.fullWidth = action.payload
     },
-    setLikeCount: (state, action) => {
-      const id = state.options.video.id
-      const videoItems = [...state.videos]
-      const index = videoItems.findIndex((item: video) => item.id === id)
-      const video = videoItems[index]
-      video.like_count = action.payload
-      state.videos = videoItems
-      state.options.video.like_count = action.payload
+    setLikeCount: (
+      state,
+      action: { payload: { videoId: number | null; newVideoCount: number } }
+    ) => {
+      const { videoId, newVideoCount } = action.payload
+      const newVideos = [...state.videos]
+      const index = state.videos.findIndex(
+        (video: video) => video.id === videoId
+      )
+      const video = newVideos[index]
+      video.like_count = newVideoCount
+      state.videos = newVideos
+      // state.videos[index].like_count = newVideoCount
+      state.options.video = video
     },
   },
   // extraReducers: (builder) => {

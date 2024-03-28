@@ -12,18 +12,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PlayerVisable } from './features/videoSlice'
 import Player from './components/Player/player'
 import { handleFetch } from './features/mainSlice'
-import axios from 'axios'
+// import axios from 'axios'
 
 const App = () => {
   const dispach = useDispatch()
-  const fetchData = async () => {
-    try {
-      const res = await axios.get('/api/videos/mainpage')
-      console.log(res)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const fetchData = async () => {
+  //   try {
+  //     const res = await axios.get('/api/videos/mainpage')
+  //     console.log(res)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   useEffect(() => {
     dispach(handleFetch())
   }, [])

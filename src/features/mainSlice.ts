@@ -151,7 +151,12 @@ export const handleFetch = createAsyncThunk<any, any>('main', async () => {
 const mainSlice = createSlice({
   name: 'main',
   initialState,
-  reducers: {},
+  reducers: {
+    setLikeCountMain: (
+      state,
+      action: { payload: { videoId: number | null; newVideoCount: number } }
+    ) => {},
+  },
   extraReducers: (builder) => {
     builder
       .addCase(handleFetch.pending, (state) => {
@@ -178,7 +183,7 @@ const mainSlice = createSlice({
 })
 
 export default mainSlice.reducer
-
+export const { setLikeCountMain } = mainSlice.actions
 export const SelectBanner = (state: RootState) => state.main.banner
 export const SelectTopUser = (state: RootState) => state.main.topusers
 export const SelectSaylananlar = (state: RootState) => state.main.saylananlar

@@ -14,7 +14,7 @@ import {
   videoPlayerVisable,
 } from '../../features/videoSlice'
 import styles from './palyer.module.css'
-import { video } from '../../features/mainSlice'
+import { setLikeCountMain, video } from '../../features/mainSlice'
 import { IoClose } from 'react-icons/io5'
 import { IoIosArrowDown, IoIosArrowUp, IoMdInformation } from 'react-icons/io'
 import { TiArrowSortedUp } from 'react-icons/ti'
@@ -29,7 +29,7 @@ import VideoContent from './video'
 import { CiSearch } from 'react-icons/ci'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { duration } from 'moment'
 const Player = () => {
   const { id } = useParams()
@@ -81,7 +81,18 @@ const Player = () => {
       if (Number(options.video?.like_count) < Number(data)) {
         setScaleHeart(0)
       }
-      dispatch(setLikeCount(data))
+      dispatch(
+        setLikeCount({
+          videoId: videos[options?.child].id,
+          newVideoCount: data.likeNum,
+        })
+      )
+      dispatch(
+        setLikeCountMain({
+          videoId: videos[options?.child].id,
+          newVideoCount: data.likeNum,
+        })
+      )
     } catch (error) {
       console.log(error)
     }
@@ -98,6 +109,71 @@ const Player = () => {
     })
     dispatch(setVideo(videos[options.child]?.id))
   }, [options.child])
+  const [progress, setProgress] = useState(0)
+  let downStop = false
+  const handleDownload = async (id: number) => {
+    if (downStop) {
+      console.log('Download stopped.')
+      setTimeout(() => {
+        downStop = false
+      }, 150)
+      return
+    }
+    try {
+      const response = await fetch(
+        `https://dev.tmbiz.info/api/videos/${id}/download`
+      )
+      if (!response?.body) return
+      const contentLengh = response.headers.get('Content-Length')
+      const totalLength =
+        typeof contentLengh === 'string' && parseInt(contentLengh)
+      console.log('totalLength', totalLength)
+      const reader = response.body.getReader()
+      const chunks = []
+      let receivedLength = 0
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) {
+          console.log('done')
+          axios
+            .put(`https://dev.tmbiz.info/api/videos/${id}/downloadcount`)
+            .then((res) => {
+              console.log(res)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          setProgress(0)
+          downStop = false
+          break
+        }
+        chunks.push(value)
+        receivedLength += value.length
+        if (typeof totalLength === 'number') {
+          const step = Math.round((receivedLength / totalLength) * 100)
+          setProgress(step)
+        }
+      }
+      const blob = new Blob(chunks)
+
+      const url = URL.createObjectURL(blob)
+
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `tmbiz-${Date.now()}.mp4`
+      const handleClick = () => {
+        setTimeout(() => {
+          URL.revokeObjectURL(url)
+          a.removeEventListener('click', handleClick)
+        }, 150)
+      }
+      a.addEventListener('click', handleClick, false)
+      a.click()
+      downStop = false
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div
       className={styles.playerMain}
@@ -202,12 +278,34 @@ const Player = () => {
           >
             <IoMdInformation />
           </span>
+          <AnimatePresence mode='popLayout'>
+            {progress > 0 && (
+              <motion.span animate={{ x: -200 }} className={styles.downloadBox}>
+                yuklenyar
+                <div className={styles.progressControl}>
+                  <progress
+                    className={styles.progress}
+                    value={progress}
+                    max={100}
+                  ></progress>
+                  <span
+                    className={styles.cancel}
+                    onClick={() => {
+                      downStop = true
+                      console.log('test')
+                    }}
+                  >
+                    <IoClose />
+                  </span>
+                </div>
+              </motion.span>
+            )}
+          </AnimatePresence>
           <span className={`${styles.controllersGroup} ${styles.videoContent}`}>
             <span
               className={styles.videoContentItem}
               onClick={() => {
                 likeVideoTest(options.video?.id)
-                console.log(videos)
               }}
             >
               <motion.span
@@ -258,10 +356,10 @@ const Player = () => {
             <span
               className={styles.videoContentItem}
               onClick={() => {
-                // downloadClick(
-                //   String(options.video?.videofile),
-                //   Number(options.video?.id)
-                // )
+                if (!downStop) {
+                  downStop = false
+                  handleDownload(Number(options.video?.id))
+                }
               }}
             >
               <LuDownload
