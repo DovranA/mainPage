@@ -6,6 +6,7 @@ import { SelectBanner } from '../../features/mainSlice'
 import { useSelector } from 'react-redux'
 const Carousel = () => {
   const carousel = useSelector(SelectBanner)
+  console.log(carousel)
   const [slide, setSlide] = useState<number>(0)
   const nextSlide = () => {
     setSlide(slide === Number(carousel?.images?.length) - 1 ? 0 : slide + 1)

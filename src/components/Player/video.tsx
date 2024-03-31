@@ -6,8 +6,9 @@ import { PlayerOptions, setPause, setVideo } from '../../features/videoSlice'
 import { useAppDispatch } from '../../app/hooks'
 type Props = {
   videocontent: video | null
+  volume: number
 }
-const Video = ({ videocontent }: Props) => {
+const Video = ({ videocontent, volume }: Props) => {
   const options = useSelector(PlayerOptions)
   const dispatch = useAppDispatch()
   const [progress, setProgress] = useState<number>(0)
@@ -42,6 +43,9 @@ const Video = ({ videocontent }: Props) => {
     setInterval(() => {
       setCurrentTime(Number(videoRef.current?.currentTime))
     }, 1000)
+    if (videoRef.current) {
+      videoRef.current.volume = Math.min(Math.max(volume, 0), 1)
+    }
   })
   useEffect(() => {
     setProgress((currentTime / videoTime) * 100)
@@ -50,7 +54,6 @@ const Video = ({ videocontent }: Props) => {
     dispatch(setPause(!options.pause))
   }
   const handleProgress = (e: any) => {
-    console.log(e.target.value)
     const newTime = Math.min(
       Math.max((videoTime / 100) * e.target.value, 0),
       videoTime
@@ -67,21 +70,24 @@ const Video = ({ videocontent }: Props) => {
           console.log('first')
         }}
         className={
-          videocontent?.is_vertical
-            ? `${styles.video__player} ${styles.fitWidth}`
-            : `${styles.video__player} ${styles.fullWidth}`
+          // videocontent?.is_vertical
+          // ?
+          `${styles.video__player} ${styles.fitWidth}`
+          // : `${styles.video__player} ${styles.fullWidth}`
         }
         onClick={() => handleVideoPress()}
         loop
         ref={videoRef}
+        muted={options.mute}
       >
         <source src={String(videocontent?.videofile)} type='video/mp4'></source>
       </video>
       <span
         className={
-          videocontent?.is_vertical
-            ? `${styles.videoDurSlice} ${styles.fitWidth}`
-            : `${styles.videoDurSlice} ${styles.fullWidth}`
+          // videocontent?.is_vertical
+          //   ?
+          `${styles.videoDurSlice} ${styles.fitWidth}`
+          // : `${styles.videoDurSlice} ${styles.fullWidth}`
         }
       >
         <span className={styles.duration}>

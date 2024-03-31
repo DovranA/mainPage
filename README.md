@@ -11,3 +11,5 @@
 
 25.03.2024: sayalananlar structure tazeledim,
 dark theme in video player
+
+28.03.2024: download button

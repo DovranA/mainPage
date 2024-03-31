@@ -12,18 +12,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PlayerVisable } from './features/videoSlice'
 import Player from './components/Player/player'
 import { handleFetch } from './features/mainSlice'
+import Test from './Test/test'
+// import Test from './Test/test'
 // import axios from 'axios'
-
 const App = () => {
   const dispach = useDispatch()
-  // const fetchData = async () => {
-  //   try {
-  //     const res = await axios.get('/api/videos/mainpage')
-  //     console.log(res)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   useEffect(() => {
     dispach(handleFetch())
   }, [])
@@ -40,6 +33,7 @@ const App = () => {
       <Routes>
         <Route path='/' index element={<Main />} />
         {/* <Route path={'/videos/:id'} element={<Player />} /> */}
+        <Route path='/test' element={<Test />} />
         <Route path='/categories/' element={<Categories />}>
           <Route path='/categories/:categorie' element={<Categorie />} />
         </Route>
@@ -47,6 +41,7 @@ const App = () => {
       <Footer />
       <Login />
     </BrowserRouter>
+    // <Test />
   )
 }
 

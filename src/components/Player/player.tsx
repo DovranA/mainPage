@@ -4,11 +4,10 @@ import {
   PlayerOptions,
   SelectVideos,
   addVideos,
-  likeVideo,
   setChild,
   setDuringKey,
-  setFullScreen,
   setLikeCount,
+  setMute,
   setPause,
   setVideo,
   videoPlayerVisable,
@@ -27,16 +26,13 @@ import { LuDownload } from 'react-icons/lu'
 import { useEffect, useRef, useState } from 'react'
 import VideoContent from './video'
 import { CiSearch } from 'react-icons/ci'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
-import { duration } from 'moment'
+import axios from 'axios'
+import useDownloader from '../../hooks/useDownloader'
 const Player = () => {
-  const { id } = useParams()
-  useEffect(() => {
-    console.log(id)
-  }, [id])
   const [darkMode, setDarkMode] = useState(false)
+  const [fullScreen, setFullScreen] = useState(false)
+  const [volume, setVolume] = useState(0.5)
   const dispatch = useAppDispatch()
   const options = useSelector(PlayerOptions)
   const videos = useSelector(SelectVideos)
@@ -49,6 +45,33 @@ const Player = () => {
   const decChild = () => {
     if (options.child > 0) dispatch(setChild(options?.child - 1))
   }
+  const likeVideoTest = async (id: number) => {
+    try {
+      const { data } = await axios.put(`/api/videos/${id}/like`)
+      if (Number(options.video?.like_count) > Number(data)) {
+        setScaleHeart(2)
+      }
+      if (Number(options.video?.like_count) < Number(data)) {
+        setScaleHeart(0)
+      }
+      dispatch(
+        setLikeCount({
+          videoId: videos[options?.child].id,
+          newVideoState: data.liked,
+        })
+      )
+      dispatch(
+        setLikeCountMain({
+          videoId: videos[options?.child].id,
+          newVideoCount: data.likeNum,
+        })
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const { addDownload, progress, controller, source } = useDownloader()
+  const [scaleHeart, setScaleHeart] = useState<number>(2)
   const handleKeyDown = async (event: React.KeyboardEvent) => {
     switch (event.code) {
       case 'Space':
@@ -66,40 +89,22 @@ const Player = () => {
       case 'ArrowRight':
         dispatch(setDuringKey('right'))
         break
+      case 'KeyM':
+        dispatch(setMute(!options.mute))
+        break
+      case 'KeyD':
+        setDarkMode(!darkMode)
+        break
+      case 'KeyL':
+        likeVideoTest(Number(options.video?.id))
+        break
     }
   }
-  // useEffect(() => {
-  //   dispatch(setVideo(videos[0].id))
-  // }, [videos])
-  const [scaleHeart, setScaleHeart] = useState<number>(2)
-  const likeVideoTest = async (id: number) => {
-    try {
-      const { data } = await axios.put(`/api/videos/${id}/like`)
-      if (Number(options.video?.like_count) > Number(data)) {
-        setScaleHeart(2)
-      }
-      if (Number(options.video?.like_count) < Number(data)) {
-        setScaleHeart(0)
-      }
-      dispatch(
-        setLikeCount({
-          videoId: videos[options?.child].id,
-          newVideoCount: data.likeNum,
-        })
-      )
-      dispatch(
-        setLikeCountMain({
-          videoId: videos[options?.child].id,
-          newVideoCount: data.likeNum,
-        })
-      )
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
   useEffect(() => {
     videoSpace.current?.focus()
     dispatch(setChild(0))
+    setFullScreen(false)
   }, [])
   useEffect(() => {
     playerRef.current?.children[options.child]?.scrollIntoView({
@@ -109,71 +114,6 @@ const Player = () => {
     })
     dispatch(setVideo(videos[options.child]?.id))
   }, [options.child])
-  const [progress, setProgress] = useState(0)
-  let downStop = false
-  const handleDownload = async (id: number) => {
-    if (downStop) {
-      console.log('Download stopped.')
-      setTimeout(() => {
-        downStop = false
-      }, 150)
-      return
-    }
-    try {
-      const response = await fetch(
-        `https://dev.tmbiz.info/api/videos/${id}/download`
-      )
-      if (!response?.body) return
-      const contentLengh = response.headers.get('Content-Length')
-      const totalLength =
-        typeof contentLengh === 'string' && parseInt(contentLengh)
-      console.log('totalLength', totalLength)
-      const reader = response.body.getReader()
-      const chunks = []
-      let receivedLength = 0
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) {
-          console.log('done')
-          axios
-            .put(`https://dev.tmbiz.info/api/videos/${id}/downloadcount`)
-            .then((res) => {
-              console.log(res)
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-          setProgress(0)
-          downStop = false
-          break
-        }
-        chunks.push(value)
-        receivedLength += value.length
-        if (typeof totalLength === 'number') {
-          const step = Math.round((receivedLength / totalLength) * 100)
-          setProgress(step)
-        }
-      }
-      const blob = new Blob(chunks)
-
-      const url = URL.createObjectURL(blob)
-
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `tmbiz-${Date.now()}.mp4`
-      const handleClick = () => {
-        setTimeout(() => {
-          URL.revokeObjectURL(url)
-          a.removeEventListener('click', handleClick)
-        }, 150)
-      }
-      a.addEventListener('click', handleClick, false)
-      a.click()
-      downStop = false
-    } catch (error) {
-      console.log(error)
-    }
-  }
   return (
     <div
       className={styles.playerMain}
@@ -194,7 +134,9 @@ const Player = () => {
         </span>
         <div className={styles.app__videos} ref={playerRef}>
           {videos.map((video: video, idx: number) => {
-            return <VideoContent videocontent={video} key={idx} />
+            return (
+              <VideoContent videocontent={video} key={idx} volume={volume} />
+            )
           })}
         </div>
         <div className={`${styles.controllers} ${styles.controllersLeft}`}>
@@ -205,7 +147,6 @@ const Player = () => {
               dispatch(addVideos({ videos: [] }))
               dispatch(setPause(true))
               dispatch(setChild(0))
-              dispatch(setFullScreen(true))
             }}
             style={
               darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
@@ -249,11 +190,25 @@ const Player = () => {
                 <TiArrowSortedUp style={{ marginTop: '-10px' }} />
               </span>
             </span>
-            <span className={styles.videoVolume}>
+            <span
+              className={styles.videoVolume}
+              style={
+                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+              }
+            >
               <input
                 type='range'
-                max={25}
+                max={1}
+                value={volume}
+                min={0}
+                step={0.1}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setVolume(Number(e.target.value))
+                }}
                 className={`${styles.styledSlider} ${styles.sliderProgress}`}
+                style={
+                  darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+                }
               />
             </span>
             <span
@@ -261,6 +216,9 @@ const Player = () => {
               style={
                 darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
               }
+              onClick={() => {
+                dispatch(setMute(!options.mute))
+              }}
             >
               <MdVolumeUp />
             </span>
@@ -269,17 +227,15 @@ const Player = () => {
         <div className={`${styles.controllers} ${styles.controllersRight}`}>
           <span
             className={styles.videoBtn}
-            // onClick={() => {
-            //   setInfo(!info)
-            // }}
             style={
               darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
             }
           >
             <IoMdInformation />
           </span>
-          <AnimatePresence mode='popLayout'>
-            {progress > 0 && (
+
+          {progress > 0 && (
+            <AnimatePresence mode='popLayout'>
               <motion.span animate={{ x: -200 }} className={styles.downloadBox}>
                 yuklenyar
                 <div className={styles.progressControl}>
@@ -291,7 +247,10 @@ const Player = () => {
                   <span
                     className={styles.cancel}
                     onClick={() => {
-                      downStop = true
+                      setTimeout(() => {
+                        controller.abort()
+                        source.cancel()
+                      }, 150)
                       console.log('test')
                     }}
                   >
@@ -299,13 +258,13 @@ const Player = () => {
                   </span>
                 </div>
               </motion.span>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          )}
           <span className={`${styles.controllersGroup} ${styles.videoContent}`}>
             <span
               className={styles.videoContentItem}
               onClick={() => {
-                likeVideoTest(options.video?.id)
+                likeVideoTest(Number(options.video?.id))
               }}
             >
               <motion.span
@@ -327,7 +286,7 @@ const Player = () => {
                   }}
                 />
               </motion.span>
-              <p className={styles.count}>{options.video?.like_count}</p>
+              <p className={styles.count}>{videos[options.child].like_count}</p>
             </span>
             <span className={styles.videoContentItem}>
               <PiShareFat
@@ -353,15 +312,7 @@ const Player = () => {
               />
               <p className={styles.count}>{options.video?.share_count}</p>
             </span>
-            <span
-              className={styles.videoContentItem}
-              onClick={() => {
-                if (!downStop) {
-                  downStop = false
-                  handleDownload(Number(options.video?.id))
-                }
-              }}
-            >
+            <span className={styles.videoContentItem}>
               <LuDownload
                 className={styles.videoBtn}
                 style={{
@@ -370,6 +321,11 @@ const Player = () => {
                   color: 'blue',
                   padding: '3px',
                 }}
+                onClick={() => {
+                  addDownload(
+                    `https://dev.tmbiz.info/api/videos/${options.video.id}/download`
+                  )
+                }}
               />
               <p className={styles.count}>{options.video?.download_count}</p>
             </span>
@@ -377,14 +333,16 @@ const Player = () => {
           <span
             className={`${styles.controllersGroup} ${styles.controllersBottom}`}
           >
-            <span
-              className={styles.videoBtn}
-              style={
-                darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
-              }
-            >
-              <MdScreenRotation />
-            </span>
+            {!options.video?.is_vertical && (
+              <span
+                className={styles.videoBtn}
+                style={
+                  darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
+                }
+              >
+                <MdScreenRotation />
+              </span>
+            )}
             <span
               className={styles.videoBtn}
               onClick={() => {
@@ -399,7 +357,7 @@ const Player = () => {
             <span
               className={styles.videoBtn}
               onClick={() => {
-                dispatch(setFullScreen(!options.fullScreen))
+                setFullScreen(!fullScreen)
               }}
               style={
                 darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}
@@ -410,19 +368,21 @@ const Player = () => {
           </span>
         </div>
       </span>
-      {options.fullScreen && (
+      {fullScreen && (
         <motion.span
-          initial={{
-            width: '100%',
-          }}
+          // initial={{
+          //   width: '100%',
+          // }}
           animate={{
-            x: 1,
+            x: '0',
+            // width: '100%',
           }}
           exit={{
-            x: 0,
+            x: '100%',
           }}
           transition={{
-            delay: 1,
+            delay: 0.4,
+            ease: 'easeInOut',
           }}
           className={styles.infoSpace}
           style={darkMode ? { backgroundColor: '#212121', color: '#fff' } : {}}

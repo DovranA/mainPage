@@ -4,12 +4,14 @@ import { video } from './mainSlice'
 import axios from 'axios'
 export type options = {
   pause: boolean
-  video: any
+  video: video | null
   child: number
   fullScreen: boolean
   duringKey: string
   fullWidth: boolean
   firstVideo: video | null | undefined
+  mute: boolean
+  volume: number
 }
 type videoPlayer = {
   videos: video[]
@@ -34,6 +36,8 @@ const initialState: videoPlayer = {
     video: null,
     fullWidth: false,
     firstVideo: null,
+    mute: false,
+    volume: 0.5,
   },
 }
 
@@ -73,7 +77,7 @@ const videosSlice = createSlice({
       const video = state.videos.find(
         (item: video) => item.id === action.payload
       )
-      state.options.video = video
+      if (video) state.options.video = video
     },
     setChild: (state, action) => {
       state.options.child = action.payload
@@ -111,44 +115,29 @@ const videosSlice = createSlice({
     setFullWidth: (state, action) => {
       state.options.fullWidth = action.payload
     },
-    setLikeCount: (
-      state,
-      action: { payload: { videoId: number | null; newVideoCount: number } }
-    ) => {
-      const { videoId, newVideoCount } = action.payload
+    setLikeCount: (state, action) => {
+      const { videoId, newVideoState } = action.payload
       const newVideos = [...state.videos]
       const index = state.videos.findIndex(
         (video: video) => video.id === videoId
       )
-      const video = newVideos[index]
-      video.like_count = newVideoCount
+      if (newVideoState) {
+        console.log('inc')
+        newVideos[index].like_count = Number(newVideos[index].like_count) + 1
+      } else {
+        console.log('dec')
+        newVideos[index].like_count = Number(newVideos[index].like_count) - 1
+      }
       state.videos = newVideos
       // state.videos[index].like_count = newVideoCount
-      state.options.video = video
+    },
+    setMute: (state, action) => {
+      state.options.mute = action.payload
+    },
+    setVolume: (state, action) => {
+      state.options.volume = action.payload
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(likeVideo.pending, (state) => {
-  //       ;(state.loading = true), (state.error = null)
-  //     })
-  //     .addCase(likeVideo.fulfilled, (state, action) => {
-  //       state.loading = false
-  //       const id = state.options.video?.id
-  //       const newVideos = state.videos?.map((item: video) => {
-  //         if (item.id === id) {
-  //           item.like_count = action.payload
-  //         }
-  //         return item
-  //       })
-  //       state.videos = newVideos
-  //       // state.options.video?.like_count = action.payload
-  //     })
-  //     .addCase(likeVideo.rejected, (state, action) => {
-  //       state.loading = false
-  //       state.error = action.payload
-  //     })
-  // },
 })
 export const {
   videoPlayerVisable,
@@ -162,6 +151,8 @@ export const {
   setFirstVideo,
   setOptionsVideo,
   setLikeCount,
+  setMute,
+  setVolume,
 } = videosSlice.actions
 export default videosSlice.reducer
 
